@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Project.InfrastructureServices.Contexts
 {
-    public class FakeDeviceContext: IFakeDeviceContext
+    public class FakeProjectContext: IFakeProjectContext
     {
         public List<Device> Database = new List<Device>()
         {

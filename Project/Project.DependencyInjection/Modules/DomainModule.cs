@@ -13,6 +13,7 @@ namespace Project.DependencyInjection.Modules
     {
         public void Register(IServiceCollection services)
         {
+            services.AddScoped<IDeviceFakeService, DeviceFakeService>();
             services.AddScoped<IDeviceService, DeviceService>();
         }
     }

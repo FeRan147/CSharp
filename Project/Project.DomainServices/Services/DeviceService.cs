@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Project.Domain.Interfaces;
 using Project.Domain.Models;
 using Project.Infrastructure.Interfaces;
@@ -6,11 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using I = Project.Infrastructure.Models;
 
 namespace Project.DomainServices.Services
 {
-    public class DeviceService: IDeviceService
+    public class DeviceService : IDeviceService
     {
         private readonly IMapper _mapper;
         private readonly IContextFactory _contextFactory;
@@ -21,11 +23,11 @@ namespace Project.DomainServices.Services
             _contextFactory = contextFactory;
         }
 
-        public IList<Device> GetDevices()
+        public async Task<IList<Device>> GetDevicesAsync()
         {
-            using (var context = _contextFactory.GetFakeDeviceContext())
+            using (var context = _contextFactory.GetProjectContext())
             {
-                var devices = context.GetDevices();
+                var devices = await context.Devices.ToListAsync();
 
                 return devices.Select(item =>
                 {
@@ -35,36 +37,53 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public Device GetDevice(int id)
+        public async Task<Device> GetDeviceAsync(int id)
         {
-            using (var context = _contextFactory.GetFakeDeviceContext())
+            using (var context = _contextFactory.GetProjectContext())
             {
-                var device = context.GetDevice(id);
+                var device = await context.Devices.FirstOrDefaultAsync(_ => _.Id == id);
                 return _mapper.Map<Device>(device);
             }
         }
 
-        public void DeleteDevice(int id)
+        public async Task DeleteDeviceAsync(int id)
         {
-            using (var context = _contextFactory.GetFakeDeviceContext())
+            using (var context = _contextFactory.GetProjectContext())
             {
-                context.DeleteDevice(id);
+                var device = await context
+                    .Devices
+                    .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+
+                if (device == null) return;
+
+                await Task.Run(() => context.Devices.Remove(device));
+
+                context.SaveChanges();
             }
         }
 
-        public void AddDevice(Device device)
+        public async Task SaveDeviceAsync(int? id, Device device)
         {
-            using (var context = _contextFactory.GetFakeDeviceContext())
-            {
-                context.AddDevice(_mapper.Map<I.Device>(device));
-            }
-        }
+            if (device == null) return;
 
-        public void UpdateDevice(int id, Device device)
-        {
-            using (var context = _contextFactory.GetFakeDeviceContext())
+            using (var context = _contextFactory.GetProjectContext())
             {
-                context.UpdateDevice(id, _mapper.Map<I.Device>(device));
+                I.Device chooseDevice = new I.Device();
+
+                if (id == null)
+                {
+                    chooseDevice = await context
+                        .Devices
+                        .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+                    _mapper.Map(device, chooseDevice);
+                }
+                else
+                {
+                    _mapper.Map(device, chooseDevice);
+                    await context.Devices.AddAsync(chooseDevice);
+                }
+
+                context.SaveChanges();
             }
         }
     }

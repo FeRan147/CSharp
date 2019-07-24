@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Project.Domain.Interfaces
 {
     public interface IDeviceService
     {
-        IList<Device> GetDevices();
-        Device GetDevice(int id);
-        void DeleteDevice(int id);
-        void AddDevice(Device device);
-        void UpdateDevice(int id, Device device);
+        Task<IList<Device>> GetDevicesAsync();
+        Task<Device> GetDeviceAsync(int id);
+        Task DeleteDeviceAsync(int id);
+        Task SaveDeviceAsync(int? id, Device device);
     }
 }

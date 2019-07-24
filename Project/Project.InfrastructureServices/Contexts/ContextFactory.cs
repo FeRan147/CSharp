@@ -16,9 +16,18 @@ namespace Project.InfrastructureServices.Contexts
             _configuration = configuration;
         }
 
-        public IFakeDeviceContext GetFakeDeviceContext()
+        public IFakeProjectContext GetFakeProjectContext()
         {
-            return new FakeDeviceContext();
+            return new FakeProjectContext();
+        }
+
+        public IProjectContext GetProjectContext()
+        {
+
+            var dbOptionsBuilder = new DbContextOptionsBuilder();
+            dbOptionsBuilder.UseSqlServer(_configuration.GetConnectionString("Project.ConnectionString"));
+
+            return new ProjectContext(dbOptionsBuilder.Options);
         }
 
         public void Dispose()

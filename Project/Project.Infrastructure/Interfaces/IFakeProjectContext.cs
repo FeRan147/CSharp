@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Project.Infrastructure.Interfaces
 {
-    public interface IFakeDeviceContext : IDisposable
+    public interface IFakeProjectContext : IDisposable
     {
         IList<Device> GetDevices();
         Device GetDevice(int id);

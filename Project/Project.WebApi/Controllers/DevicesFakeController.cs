@@ -12,21 +12,21 @@ namespace Project.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DevicesController : ControllerBase
+    public class DevicesFakeController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IDeviceService _deviceService;
+        private readonly IDeviceFakeService _deviceFakeService;
 
-        public DevicesController(IMapper mapper, IDeviceService deviceService)
+        public DevicesFakeController(IMapper mapper, IDeviceFakeService deviceFakeService)
         {
             _mapper = mapper;
-            _deviceService = deviceService;
+            _deviceFakeService = deviceFakeService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Device>> Get()
         {
-            var devices = _deviceService.GetDevicesAsync().Result;
+            var devices = _deviceFakeService.GetDevices();
 
             return devices.Select(item =>
             {
@@ -38,26 +38,26 @@ namespace Project.WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Device> Get(int id)
         {
-            var device = _deviceService.GetDeviceAsync(id).Result;
+            var device = _deviceFakeService.GetDevice(id);
             return _mapper.Map<Device>(device);
         }
 
         [HttpPost]
         public void Post([FromBody] Device device)
         {
-            _deviceService.SaveDeviceAsync(null, _mapper.Map<D.Device>(device));
+            _deviceFakeService.AddDevice(_mapper.Map<D.Device>(device));
         }
 
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Device device)
         {
-            _deviceService.SaveDeviceAsync(id, _mapper.Map<D.Device>(device));
+            _deviceFakeService.UpdateDevice(id, _mapper.Map<D.Device>(device));
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _deviceService.DeleteDeviceAsync(id);
+            _deviceFakeService.DeleteDevice(id);
         }
     }
 }
