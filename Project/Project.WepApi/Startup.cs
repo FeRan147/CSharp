@@ -14,10 +14,10 @@ using Microsoft.Extensions.Options;
 using Project.DependencyInjection.Interfaces;
 using Project.DependencyInjection.Modules;
 using Project.DomainServices.Mapper;
-using Project.WepApi.Mapper;
+using Project.WebApi.Mapper;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Project.WepApi
+namespace Project.WebApi
 {
     public class Startup
     {

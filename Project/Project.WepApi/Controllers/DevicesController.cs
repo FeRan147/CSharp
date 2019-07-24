@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Project.Domain.Interfaces;
-using Project.WepApi.Models;
+using Project.WebApi.Models;
 using D = Project.Domain.Models;
 
-namespace Project.WepApi.Controllers
+namespace Project.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

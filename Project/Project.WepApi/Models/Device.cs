@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project.WepApi.Models
+namespace Project.WebApi.Models
 {
     public class Device
     {

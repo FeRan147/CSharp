@@ -13,17 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DI", "DI", "{16B17888-BAC7-4332-BB87-6C3580B4C506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Infrastructure", "Project.Infrastructure\Project.Infrastructure.csproj", "{C14B8766-FE17-4687-9FEB-881B0BF1A407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Infrastructure", "Project.Infrastructure\Project.Infrastructure.csproj", "{C14B8766-FE17-4687-9FEB-881B0BF1A407}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.InfrastructureServices", "Project.InfrastructureServices\Project.InfrastructureServices.csproj", "{608ADE43-3515-43C0-AA2F-A14DE28D235B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.InfrastructureServices", "Project.InfrastructureServices\Project.InfrastructureServices.csproj", "{608ADE43-3515-43C0-AA2F-A14DE28D235B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Domain", "Project.Domain\Project.Domain.csproj", "{EDC7824D-E543-4A75-8D3F-8D8348ACC8C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Domain", "Project.Domain\Project.Domain.csproj", "{EDC7824D-E543-4A75-8D3F-8D8348ACC8C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.DomainServices", "Project.DomainServices\Project.DomainServices.csproj", "{4AA7F6F0-7B49-48EF-803E-1812E83F877D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.DomainServices", "Project.DomainServices\Project.DomainServices.csproj", "{4AA7F6F0-7B49-48EF-803E-1812E83F877D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.DependencyInjection", "Project.DependencyInjection\Project.DependencyInjection.csproj", "{03142177-64FB-4538-A824-FE5E0C0D7127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.DependencyInjection", "Project.DependencyInjection\Project.DependencyInjection.csproj", "{03142177-64FB-4538-A824-FE5E0C0D7127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.WepApi", "Project.WepApi\Project.WepApi.csproj", "{05FED797-E897-48F3-A5E9-1F5DCD277E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.WebApi", "Project.WepApi\Project.WebApi.csproj", "{05FED797-E897-48F3-A5E9-1F5DCD277E4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

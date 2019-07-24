@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using D = Project.Domain.Models;
-using W = Project.WepApi.Models;
+using W = Project.WebApi.Models;
 
-namespace Project.WepApi.Mapper
+namespace Project.WebApi.Mapper
 {
     public class WebApiProfile : Profile
     {
