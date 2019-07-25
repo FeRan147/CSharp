@@ -40,8 +40,8 @@ namespace Project.WebApi
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            Register<DomainModule>(services);
-            Register<InfrastructureModule>(services);
+            Register<DomainModule>(services, Configuration);
+            Register<InfrastructureModule>(services, Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -77,9 +77,9 @@ namespace Project.WebApi
             });
         }
 
-        public static void Register<T>(IServiceCollection services) where T : IModule, new()
+        public static void Register<T>(IServiceCollection services, IConfiguration configuration) where T : IModule, new()
         {
-            new T().Register(services);
+            new T().Register(services, configuration);
         }
     }
 }

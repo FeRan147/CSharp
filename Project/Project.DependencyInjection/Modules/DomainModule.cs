@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Project.DependencyInjection.Interfaces;
 using Project.Domain.Interfaces;
 using Project.DomainServices.Services;
@@ -11,7 +12,7 @@ namespace Project.DependencyInjection.Modules
 {
     public class DomainModule: IModule
     {
-        public void Register(IServiceCollection services)
+        public void Register(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IDeviceFakeService, DeviceFakeService>();
             services.AddScoped<IDeviceService, DeviceService>();
