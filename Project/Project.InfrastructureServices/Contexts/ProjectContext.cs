@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Project.InfrastructureServices.Contexts
 {
-    class ProjectContext: IdentityDbContext<User, Role, int>, IProjectContext
+    public class ProjectContext: IdentityDbContext<User, Role, int>, IProjectContext
     {
         public ProjectContext(DbContextOptions options) : base(options)
         {
