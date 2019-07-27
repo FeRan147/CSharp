@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Project.DependencyInjection.Interfaces;
 using Project.DependencyInjection.Modules;
 using Project.DomainServices.Mapper;
+using Project.WebApi.Helpers;
 using Project.WebApi.Mapper;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -51,6 +52,12 @@ namespace Project.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Project API", Version = "v1" });
+            });
+
+            services.ConfigureSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.OperationFilter<FileUploadOperation>(); //Register File Upload Operation Filter
             });
         }
 

@@ -24,7 +24,7 @@ namespace Project.WebApi.Controllers
         }
 
         [HttpGet("{includeDevices}")]
-        public ActionResult<IEnumerable<User>> Get(bool includeDevices)
+        public IEnumerable<User> Get(bool includeDevices)
         {
             var users = _userFakeService.GetUsers(includeDevices);
 
@@ -36,7 +36,7 @@ namespace Project.WebApi.Controllers
         }
 
         [HttpGet("{id}/{includeDevices}")]
-        public ActionResult<User> Get(int id, bool includeDevices)
+        public User Get(int id, bool includeDevices)
         {
             var user = _userFakeService.GetUser(id, includeDevices);
             return _mapper.Map<User>(user);
