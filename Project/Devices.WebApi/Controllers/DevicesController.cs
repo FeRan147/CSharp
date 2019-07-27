@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,10 @@ namespace Project.WebApi.Controllers
             _deviceService = deviceService;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Device>> Get()
+        [HttpGet("{includeUser}")]
+        public async Task<IEnumerable<Device>> GetAsync(bool includeUser, CancellationToken cancellationToken)
         {
-            var devices = _deviceService.GetDevicesAsync().Result;
+            var devices = await _deviceService.GetDevicesAsync(includeUser);
 
             return devices.Select(item =>
             {
@@ -35,29 +36,29 @@ namespace Project.WebApi.Controllers
             }).ToList();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Device> Get(int id)
+        [HttpGet("{id}/{includeUser}")]
+        public async Task<Device> GetAsync(int id, bool includeUser)
         {
-            var device = _deviceService.GetDeviceAsync(id).Result;
+            var device = await _deviceService.GetDeviceAsync(id, includeUser);
             return _mapper.Map<Device>(device);
         }
 
         [HttpPost]
-        public void Post([FromBody] Device device)
+        public async Task PostAsync([FromBody] Device device)
         {
-            _deviceService.SaveDeviceAsync(null, _mapper.Map<D.Device>(device));
+            await _deviceService.SaveDeviceAsync(null, _mapper.Map<D.Device>(device));
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Device device)
+        public async Task PutAsync(int id, [FromBody] Device device)
         {
-            _deviceService.SaveDeviceAsync(id, _mapper.Map<D.Device>(device));
+            await _deviceService.SaveDeviceAsync(id, _mapper.Map<D.Device>(device));
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            _deviceService.DeleteDeviceAsync(id);
+            await _deviceService.DeleteDeviceAsync(id);
         }
     }
 }

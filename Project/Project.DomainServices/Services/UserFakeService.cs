@@ -10,61 +10,61 @@ using I = Project.Infrastructure.Models;
 
 namespace Project.DomainServices.Services
 {
-    public class DeviceFakeService: IDeviceFakeService
+    public class UserFakeService : IUserFakeService
     {
         private readonly IMapper _mapper;
         private readonly IContextFactory _contextFactory;
 
-        public DeviceFakeService(IMapper mapper, IContextFactory contextFactory)
+        public UserFakeService(IMapper mapper, IContextFactory contextFactory)
         {
             _mapper = mapper;
             _contextFactory = contextFactory;
         }
 
-        public IList<Device> GetDevices(bool includeUser)
+        public IList<User> GetUsers(bool includeDevices)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
-                var devices = context.GetDevices(includeUser);
+                var users = context.GetUsers(includeDevices);
 
-                return devices.Select(item =>
+                return users.Select(item =>
                 {
-                    var entity = _mapper.Map<Device>(item);
+                    var entity = _mapper.Map<User>(item);
                     return entity;
                 }).ToList();
             }
         }
 
-        public Device GetDevice(int id, bool includeUser)
+        public User GetUser(int id, bool includeDevices)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
-                var device = context.GetDevice(id, includeUser);
-                return _mapper.Map<Device>(device);
+                var user = context.GetUser(id, includeDevices);
+                return _mapper.Map<User>(user);
             }
         }
 
-        public void DeleteDevice(int id)
+        public void DeleteUser(int id)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
-                context.DeleteDevice(id);
+                context.DeleteUser(id);
             }
         }
 
-        public void AddDevice(Device device)
+        public void AddUser(User user)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
-                context.AddDevice(_mapper.Map<I.Device>(device));
+                context.AddUser(_mapper.Map<I.User>(user));
             }
         }
 
-        public void UpdateDevice(int id, Device device)
+        public void UpdateUser(int id, User user)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
-                context.UpdateDevice(id, _mapper.Map<I.Device>(device));
+                context.UpdateUser(id, _mapper.Map<I.User>(user));
             }
         }
     }

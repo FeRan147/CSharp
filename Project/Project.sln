@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.DomainServices", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.DependencyInjection", "Project.DependencyInjection\Project.DependencyInjection.csproj", "{03142177-64FB-4538-A824-FE5E0C0D7127}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.WebApi", "Project.WebApi\Project.WebApi.csproj", "{05FED797-E897-48F3-A5E9-1F5DCD277E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Devices.WebApi", "Devices.WebApi\Devices.WebApi.csproj", "{05FED797-E897-48F3-A5E9-1F5DCD277E4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

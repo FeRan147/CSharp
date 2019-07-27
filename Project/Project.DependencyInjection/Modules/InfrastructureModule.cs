@@ -14,9 +14,7 @@ namespace Project.DependencyInjection.Modules
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IContextFactory, ContextFactory>();
-            services.AddTransient<IProjectContext, ProjectContext>();
-            services.AddTransient<IFakeProjectContext, FakeProjectContext>();
+            services.AddSingleton<IContextFactory, ContextFactory>();
             services.AddDbContext<ProjectContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("Project.ConnectionString")));
         }

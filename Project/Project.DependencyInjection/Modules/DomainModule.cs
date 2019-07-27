@@ -16,6 +16,8 @@ namespace Project.DependencyInjection.Modules
         {
             services.AddScoped<IDeviceFakeService, DeviceFakeService>();
             services.AddScoped<IDeviceService, DeviceService>();
+            services.AddScoped<IUserFakeService, UserFakeService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

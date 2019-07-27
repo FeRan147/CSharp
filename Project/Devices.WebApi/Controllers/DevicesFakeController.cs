@@ -23,10 +23,10 @@ namespace Project.WebApi.Controllers
             _deviceFakeService = deviceFakeService;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Device>> Get()
+        [HttpGet("{includeUser}")]
+        public ActionResult<IEnumerable<Device>> Get(bool includeUser)
         {
-            var devices = _deviceFakeService.GetDevices();
+            var devices = _deviceFakeService.GetDevices(includeUser);
 
             return devices.Select(item =>
             {
@@ -35,10 +35,10 @@ namespace Project.WebApi.Controllers
             }).ToList();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Device> Get(int id)
+        [HttpGet("{id}/{includeUser}")]
+        public ActionResult<Device> Get(int id, bool includeUser)
         {
-            var device = _deviceFakeService.GetDevice(id);
+            var device = _deviceFakeService.GetDevice(id, includeUser);
             return _mapper.Map<Device>(device);
         }
 

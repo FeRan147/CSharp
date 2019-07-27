@@ -13,6 +13,7 @@ namespace Project.WebApi.Mapper
         public WebApiProfile()
         {
             CreateMap<W.Device, D.Device>().ReverseMap();
+            CreateMap<W.User, D.User>().ReverseMap();
         }
     }
 }

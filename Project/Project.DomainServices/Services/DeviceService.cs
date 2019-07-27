@@ -23,11 +23,18 @@ namespace Project.DomainServices.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<IList<Device>> GetDevicesAsync()
+        public async Task<IList<Device>> GetDevicesAsync(bool includeUser)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
-                var devices = await context.Devices.ToListAsync();
+                var devicesQuery = context.Devices.AsQueryable();
+
+                if(includeUser)
+                {
+                    devicesQuery = devicesQuery.Include(_ => _.User);
+                }
+
+                var devices = await devicesQuery.ToListAsync();
 
                 return devices.Select(item =>
                 {
@@ -37,11 +44,17 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task<Device> GetDeviceAsync(int id)
+        public async Task<Device> GetDeviceAsync(int id, bool includeUser)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
                 var device = await context.Devices.FirstOrDefaultAsync(_ => _.Id == id);
+
+                if (includeUser)
+                {
+                    device.User = await context.Users.FirstOrDefaultAsync(user => user.Id == device.UserId);
+                }
+
                 return _mapper.Map<Device>(device);
             }
         }

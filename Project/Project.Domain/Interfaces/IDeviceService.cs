@@ -8,8 +8,8 @@ namespace Project.Domain.Interfaces
 {
     public interface IDeviceService
     {
-        Task<IList<Device>> GetDevicesAsync();
-        Task<Device> GetDeviceAsync(int id);
+        Task<IList<Device>> GetDevicesAsync(bool includeUser);
+        Task<Device> GetDeviceAsync(int id, bool includeUser);
         Task DeleteDeviceAsync(int id);
         Task SaveDeviceAsync(int? id, Device device);
     }

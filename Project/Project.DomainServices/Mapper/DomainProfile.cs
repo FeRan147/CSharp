@@ -12,6 +12,7 @@ namespace Project.DomainServices.Mapper
         public DomainProfile()
         {
             CreateMap<D.Device, I.Device>().ReverseMap();
+            CreateMap<D.User, I.User>().ReverseMap();
         }
     }
 }

@@ -112,12 +112,88 @@ namespace Project.InfrastructureServices.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Devices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Availibility = false,
+                            Name = "Телевизор",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Availibility = false,
+                            Name = "Холодильник",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Availibility = true,
+                            Name = "Телефон",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Availibility = false,
+                            Name = "Вентилятор",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Availibility = true,
+                            Name = "Кондиционер",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Availibility = false,
+                            Name = "Приставка",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Availibility = false,
+                            Name = "Мультиварка",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Availibility = true,
+                            Name = "Компьютер",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Availibility = false,
+                            Name = "Принтер",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Availibility = true,
+                            Name = "Сканер",
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("Project.Infrastructure.Models.Role", b =>
@@ -195,6 +271,30 @@ namespace Project.InfrastructureServices.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "214d48c5-24cf-49c6-90d2-d991585b40d6",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "Паша"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0a1527ad-fe9b-457b-846f-257055719e75",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "Женя"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -238,6 +338,14 @@ namespace Project.InfrastructureServices.Migrations
                 {
                     b.HasOne("Project.Infrastructure.Models.User")
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Project.Infrastructure.Models.Device", b =>
+                {
+                    b.HasOne("Project.Infrastructure.Models.User", "User")
+                        .WithMany("Devices")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

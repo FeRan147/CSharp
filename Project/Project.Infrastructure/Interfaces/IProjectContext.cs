@@ -9,5 +9,6 @@ namespace Project.Infrastructure.Interfaces
     public interface IProjectContext: IDbContext
     {
         DbSet<Device> Devices { get; set; }
+        DbSet<User> Users { get; set; }
     }
 }

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Project.Infrastructure.Models
+namespace Project.Domain.Models
 {
-    public class User: IdentityUser<int>
+    public class User : IdentityUser<int>
     {
         public IList<Device> Devices { get; set; }
     }
