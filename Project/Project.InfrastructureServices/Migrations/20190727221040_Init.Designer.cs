@@ -10,7 +10,7 @@ using Project.InfrastructureServices.Contexts;
 namespace Project.InfrastructureServices.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20190727105405_Init")]
+    [Migration("20190727221040_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -279,7 +279,7 @@ namespace Project.InfrastructureServices.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "214d48c5-24cf-49c6-90d2-d991585b40d6",
+                            ConcurrencyStamp = "a3ff2b8b-68a0-43b8-a849-df9765f02623",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
@@ -290,7 +290,7 @@ namespace Project.InfrastructureServices.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0a1527ad-fe9b-457b-846f-257055719e75",
+                            ConcurrencyStamp = "4ded5c8d-53f3-4042-bd1f-7cb91d8bc692",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,

@@ -179,12 +179,12 @@ namespace Project.InfrastructureServices.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "214d48c5-24cf-49c6-90d2-d991585b40d6", null, false, false, null, null, null, null, null, false, null, false, "Паша" });
+                values: new object[] { 1, 0, "a3ff2b8b-68a0-43b8-a849-df9765f02623", null, false, false, null, null, null, null, null, false, null, false, "Паша" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 2, 0, "0a1527ad-fe9b-457b-846f-257055719e75", null, false, false, null, null, null, null, null, false, null, false, "Женя" });
+                values: new object[] { 2, 0, "4ded5c8d-53f3-4042-bd1f-7cb91d8bc692", null, false, false, null, null, null, null, null, false, null, false, "Женя" });
 
             migrationBuilder.InsertData(
                 table: "Devices",
