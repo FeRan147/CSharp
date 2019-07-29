@@ -31,7 +31,9 @@ namespace Project.DomainServices.Services
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    await file.CopyToAsync(fileStream);
+                    await file
+                            .CopyToAsync(fileStream)
+                            .ConfigureAwait(false);
 
                     return filePath;
                 }

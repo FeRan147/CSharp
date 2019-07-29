@@ -34,7 +34,9 @@ namespace Project.DomainServices.Services
                     devicesQuery = devicesQuery.Include(_ => _.User);
                 }
 
-                var devices = await devicesQuery.ToListAsync();
+                var devices = await devicesQuery
+                                    .ToListAsync()
+                                    .ConfigureAwait(false);
 
                 return devices.Select(item =>
                 {
@@ -52,7 +54,10 @@ namespace Project.DomainServices.Services
 
                 if (includeUser)
                 {
-                    device.User = await context.Users.FirstOrDefaultAsync(user => user.Id == device.UserId);
+                    device.User = await context
+                                    .Users
+                                    .FirstOrDefaultAsync(user => user.Id == device.UserId)
+                                    .ConfigureAwait(false);
                 }
 
                 return _mapper.Map<Device>(device);
@@ -64,12 +69,16 @@ namespace Project.DomainServices.Services
             using (var context = _contextFactory.GetProjectContext())
             {
                 var device = await context
-                    .Devices
-                    .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+                                .Devices
+                                .FirstOrDefaultAsync(_ => _.Id.Equals(id))
+                                .ConfigureAwait(false);
 
                 if (device == null) return;
 
-                await Task.Run(() => context.Devices.Remove(device));
+                await Task.Run(() => context
+                                        .Devices
+                                        .Remove(device))
+                                        .ConfigureAwait(false);
 
                 context.SaveChanges();
             }
@@ -86,14 +95,18 @@ namespace Project.DomainServices.Services
                 if (id == null)
                 {
                     chooseDevice = await context
-                        .Devices
-                        .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+                                    .Devices
+                                    .FirstOrDefaultAsync(_ => _.Id.Equals(id))
+                                    .ConfigureAwait(false);
                     _mapper.Map(device, chooseDevice);
                 }
                 else
                 {
                     _mapper.Map(device, chooseDevice);
-                    await context.Devices.AddAsync(chooseDevice);
+                    await context
+                            .Devices
+                            .AddAsync(chooseDevice)
+                            .ConfigureAwait(false);
                 }
 
                 context.SaveChanges();
@@ -107,10 +120,11 @@ namespace Project.DomainServices.Services
                 var offset = (currentPage - 1) * onPage;
 
                 var devices = await context
-                    .Devices
-                    .Skip(offset)
-                    .Take(onPage)
-                    .ToListAsync();
+                                .Devices
+                                .Skip(offset)
+                                .Take(onPage)
+                                .ToListAsync()
+                                .ConfigureAwait(false);
 
                 return devices.Select(item =>
                         {

@@ -34,7 +34,9 @@ namespace Project.DomainServices.Services
                     usersQuery = usersQuery.Include(_ => _.Devices);
                 }
 
-                var users = await usersQuery.ToListAsync();
+                var users = await usersQuery
+                                    .ToListAsync()
+                                    .ConfigureAwait(false);
 
                 return users.Select(item =>
                 {
@@ -48,7 +50,10 @@ namespace Project.DomainServices.Services
         {
             using (var context = _contextFactory.GetProjectContext())
             {
-                var user = await context.Users.FirstOrDefaultAsync(_ => _.Id == id);
+                var user = await context
+                                    .Users
+                                    .FirstOrDefaultAsync(_ => _.Id == id)
+                                    .ConfigureAwait(false);
 
                 if (includeDevices)
                 {
@@ -64,12 +69,15 @@ namespace Project.DomainServices.Services
             using (var context = _contextFactory.GetProjectContext())
             {
                 var user = await context
-                    .Users
-                    .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+                                    .Users
+                                    .FirstOrDefaultAsync(_ => _.Id.Equals(id))
+                                    .ConfigureAwait(false);
 
                 if (user == null) return;
 
-                await Task.Run(() => context.Users.Remove(user));
+                await Task.Run(() => context
+                                        .Users
+                                        .Remove(user));
 
                 context.SaveChanges();
             }
@@ -86,14 +94,18 @@ namespace Project.DomainServices.Services
                 if (id == null)
                 {
                     chooseUser = await context
-                        .Users
-                        .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+                                        .Users
+                                        .FirstOrDefaultAsync(_ => _.Id.Equals(id))
+                                        .ConfigureAwait(false);
                     _mapper.Map(user, chooseUser);
                 }
                 else
                 {
                     _mapper.Map(user, chooseUser);
-                    await context.Users.AddAsync(chooseUser);
+                    await context
+                            .Users
+                            .AddAsync(chooseUser)
+                            .ConfigureAwait(false);
                 }
 
                 context.SaveChanges();
@@ -110,7 +122,8 @@ namespace Project.DomainServices.Services
                     .Users
                     .Skip(offset)
                     .Take(onPage)
-                    .ToListAsync();
+                    .ToListAsync()
+                    .ConfigureAwait(false);
 
                 return users.Select(item =>
                         {
