@@ -83,6 +83,18 @@ namespace Project.InfrastructureServices.Contexts
             Users.Add(user);
         }
 
+        public IList<User> GetPagedUsers(int currentPage, int onPage)
+        {
+            var offset = (currentPage - 1) * onPage;
+
+            var users = Users
+                    .Skip(offset)
+                    .Take(onPage)
+                    .ToList();
+
+            return users;
+        }
+
         public IList<Device> GetDevices(bool includeUser)
         {
             var devices = Devices;
@@ -128,6 +140,18 @@ namespace Project.InfrastructureServices.Contexts
             device.Id = findDevice.Id;
             Devices.Remove(findDevice);
             Devices.Add(device);
+        }
+
+        public IList<Device> GetPagedDevices(int currentPage, int onPage)
+        {
+            var offset = (currentPage - 1) * onPage;
+
+            var devices = Devices
+                    .Skip(offset)
+                    .Take(onPage)
+                    .ToList();
+
+            return devices;
         }
 
         public void Dispose()

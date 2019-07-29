@@ -5,12 +5,7 @@ using System.Text;
 
 namespace Project.Domain.Interfaces
 {
-    public interface IUserFakeService
+    public interface IUserFakeService: IBaseFakeService<User>
     {
-        IList<User> GetUsers(bool includeDevices);
-        User GetUser(int id, bool includeDevices);
-        void DeleteUser(int id);
-        void AddUser(User user);
-        void UpdateUser(int id, User user);
     }
 }

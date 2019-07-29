@@ -23,7 +23,7 @@ namespace Project.DomainServices.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<IList<User>> GetUsersAsync(bool includeDevices)
+        public async Task<IList<User>> GetAllAsync(bool includeDevices)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -44,7 +44,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task<User> GetUserAsync(int id, bool includeDevices)
+        public async Task<User> GetAsync(int id, bool includeDevices)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -59,7 +59,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -75,7 +75,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task SaveUserAsync(int? id, User user)
+        public async Task SaveAsync(int? id, User user)
         {
             if (user == null) return;
 
@@ -98,6 +98,30 @@ namespace Project.DomainServices.Services
 
                 context.SaveChanges();
             }
+        }
+
+        public async Task<IList<User>> GetPagedAsync(int currentPage, int onPage)
+        {
+            using (var context = _contextFactory.GetProjectContext())
+            {
+                var offset = (currentPage - 1) * onPage;
+
+                var users = await context
+                    .Users
+                    .Skip(offset)
+                    .Take(onPage)
+                    .ToListAsync();
+
+                return users.Select(item =>
+                        {
+                            var entity = _mapper.Map<User>(item);
+                            return entity;
+                        }).ToList();
+            }
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

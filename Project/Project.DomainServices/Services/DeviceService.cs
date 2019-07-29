@@ -23,7 +23,7 @@ namespace Project.DomainServices.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<IList<Device>> GetDevicesAsync(bool includeUser)
+        public async Task<IList<Device>> GetAllAsync(bool includeUser)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -44,7 +44,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task<Device> GetDeviceAsync(int id, bool includeUser)
+        public async Task<Device> GetAsync(int id, bool includeUser)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -59,7 +59,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task DeleteDeviceAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -75,7 +75,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task SaveDeviceAsync(int? id, Device device)
+        public async Task SaveAsync(int? id, Device device)
         {
             if (device == null) return;
 
@@ -98,6 +98,30 @@ namespace Project.DomainServices.Services
 
                 context.SaveChanges();
             }
+        }
+
+        public async Task<IList<Device>> GetPagedAsync(int currentPage, int onPage)
+        {
+            using (var context = _contextFactory.GetProjectContext())
+            {
+                var offset = (currentPage - 1) * onPage;
+
+                var devices = await context
+                    .Devices
+                    .Skip(offset)
+                    .Take(onPage)
+                    .ToListAsync();
+
+                return devices.Select(item =>
+                        {
+                            var entity = _mapper.Map<Device>(item);
+                            return entity;
+                        }).ToList();
+            }
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

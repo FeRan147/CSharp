@@ -21,7 +21,7 @@ namespace Project.DomainServices.Services
             _contextFactory = contextFactory;
         }
 
-        public IList<Device> GetDevices(bool includeUser)
+        public IList<Device> GetAll(bool includeUser)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -35,7 +35,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public Device GetDevice(int id, bool includeUser)
+        public Device Get(int id, bool includeUser)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -44,7 +44,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public void DeleteDevice(int id)
+        public void Delete(int id)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -52,7 +52,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public void AddDevice(Device device)
+        public void Add(Device device)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -60,12 +60,33 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public void UpdateDevice(int id, Device device)
+        public void Update(int id, Device device)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
                 context.UpdateDevice(id, _mapper.Map<I.Device>(device));
             }
+        }
+
+        public IList<Device> GetPaged(int currentPage, int onPage)
+        {
+            using (var context = _contextFactory.GetFakeProjectContext())
+            {
+                var offset = (currentPage - 1) * onPage;
+
+                var devices = context
+                    .GetPagedDevices(currentPage, onPage).Select(item =>
+                    {
+                        var entity = _mapper.Map<Device>(item);
+                        return entity;
+                    }).ToList();
+
+                return devices;
+            }
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

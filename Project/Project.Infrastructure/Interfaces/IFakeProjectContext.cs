@@ -17,5 +17,7 @@ namespace Project.Infrastructure.Interfaces
         void DeleteDevice(int id);
         void AddDevice(Device device);
         void UpdateDevice(int id, Device device);
+        IList<User> GetPagedUsers(int currentPage, int onPage);
+        IList<Device> GetPagedDevices(int currentPage, int onPage);
     }
 }

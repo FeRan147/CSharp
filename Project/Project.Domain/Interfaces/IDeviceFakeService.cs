@@ -5,12 +5,7 @@ using System.Text;
 
 namespace Project.Domain.Interfaces
 {
-    public interface IDeviceFakeService
+    public interface IDeviceFakeService: IBaseFakeService<Device>
     {
-        IList<Device> GetDevices(bool includeUser);
-        Device GetDevice(int id, bool includeUser);
-        void DeleteDevice(int id);
-        void AddDevice(Device device);
-        void UpdateDevice(int id, Device device);
     }
 }

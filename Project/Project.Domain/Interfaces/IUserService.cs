@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project.Domain.Interfaces
 {
-    public interface IUserService
+    public interface IUserService: IBaseService<User>
     {
-        Task<IList<User>> GetUsersAsync(bool includeDevices);
-        Task<User> GetUserAsync(int id, bool includeDevices);
-        Task DeleteUserAsync(int id);
-        Task SaveUserAsync(int? id, User user);
     }
 }

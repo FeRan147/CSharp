@@ -21,7 +21,7 @@ namespace Project.DomainServices.Services
             _contextFactory = contextFactory;
         }
 
-        public IList<User> GetUsers(bool includeDevices)
+        public IList<User> GetAll(bool includeDevices)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -35,7 +35,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public User GetUser(int id, bool includeDevices)
+        public User Get(int id, bool includeDevices)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -44,7 +44,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public void DeleteUser(int id)
+        public void Delete(int id)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -52,7 +52,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public void AddUser(User user)
+        public void Add(User user)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
@@ -60,12 +60,33 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public void UpdateUser(int id, User user)
+        public void Update(int id, User user)
         {
             using (var context = _contextFactory.GetFakeProjectContext())
             {
                 context.UpdateUser(id, _mapper.Map<I.User>(user));
             }
+        }
+
+        public IList<User> GetPaged(int currentPage, int onPage)
+        {
+            using (var context = _contextFactory.GetFakeProjectContext())
+            {
+                var offset = (currentPage - 1) * onPage;
+
+                var users = context
+                    .GetPagedUsers(currentPage, onPage).Select(item =>
+                    {
+                        var entity = _mapper.Map<User>(item);
+                        return entity;
+                    }).ToList();
+
+                return users;
+            }
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
