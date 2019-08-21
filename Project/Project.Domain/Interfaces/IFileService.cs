@@ -9,7 +9,6 @@ namespace Project.Domain.Interfaces
 {
     public interface IFileService
     {
-
         Task<string> SaveFileAsync(IFormFile file, IHostingEnvironment hostingEnvironment);
     }
 }

@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project.Domain.Interfaces
 {
-    public interface IDeviceService
+    public interface IDeviceService: IBaseService<Device>
     {
-        Task<IList<Device>> GetDevicesAsync(bool includeUser);
-        Task<Device> GetDeviceAsync(int id, bool includeUser);
-        Task DeleteDeviceAsync(int id);
-        Task SaveDeviceAsync(int? id, Device device);
     }
 }

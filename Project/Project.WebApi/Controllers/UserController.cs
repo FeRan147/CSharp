@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Project.Domain.Interfaces;
+using Project.WebApi.Interfaces;
 using Project.WebApi.Models;
 using D = Project.Domain.Models;
 
@@ -23,41 +24,52 @@ namespace Project.WebApi.Controllers
             _userService = userService;
         }
 
-        [HttpGet("{includeDevices}")]
-        public async Task<IEnumerable<User>> GetAsync(bool includeDevices)
+        [HttpGet("{includeDevices:bool}")]
+        public async Task<IEnumerable<User>> GetAllAsync(bool includeDevices)
         {
-            var users = await _userService.GetUsersAsync(includeDevices);
+            var users = await _userService.GetAllAsync(includeDevices);
 
             return users.Select(item =>
+                {
+                    var entity = _mapper.Map<User>(item);
+                    return entity;
+                }).ToList();
+        }
+
+        [HttpGet("{id:int}/{includeDevices:bool}")]
+        public async Task<User> GetAsync(int id, bool includeDevices)
+        {
+            var user = await _userService.GetAsync(id, includeDevices);
+            return _mapper.Map<User>(user);
+        }
+
+        [HttpGet("{currentPage:int}/{onPage:int}")]
+        public async Task<IList<User>> GetPagedAsync(int currentPage, int onPage)
+        {
+            var pagedUsers = await _userService.GetPagedAsync(currentPage, onPage);
+            return pagedUsers.Select(item =>
             {
                 var entity = _mapper.Map<User>(item);
                 return entity;
             }).ToList();
         }
 
-        [HttpGet("{id}/{includeDevices}")]
-        public async Task<User> GetAsync(int id, bool includeDevices)
-        {
-            var user = await _userService.GetUserAsync(id, includeDevices);
-            return _mapper.Map<User>(user);
-        }
-
         [HttpPost]
         public async Task PostAsync([FromBody] User user)
         {
-            await _userService.SaveUserAsync(null, _mapper.Map<D.User>(user));
+            await _userService.SaveAsync(null, _mapper.Map<D.User>(user));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task PutAsync(int id, [FromBody] User user)
         {
-            await _userService.SaveUserAsync(id, _mapper.Map<D.User>(user));
+            await _userService.SaveAsync(id, _mapper.Map<D.User>(user));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task DeleteAsync(int id)
         {
-            await _userService.DeleteUserAsync(id);
+            await _userService.DeleteAsync(id);
         }
     }
 }

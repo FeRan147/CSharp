@@ -23,7 +23,7 @@ namespace Project.DomainServices.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<IList<Device>> GetDevicesAsync(bool includeUser)
+        public async Task<IList<Device>> GetAllAsync(bool includeUser)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -34,7 +34,9 @@ namespace Project.DomainServices.Services
                     devicesQuery = devicesQuery.Include(_ => _.User);
                 }
 
-                var devices = await devicesQuery.ToListAsync();
+                var devices = await devicesQuery
+                                    .ToListAsync()
+                                    .ConfigureAwait(false);
 
                 return devices.Select(item =>
                 {
@@ -44,7 +46,7 @@ namespace Project.DomainServices.Services
             }
         }
 
-        public async Task<Device> GetDeviceAsync(int id, bool includeUser)
+        public async Task<Device> GetAsync(int id, bool includeUser)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
@@ -52,30 +54,37 @@ namespace Project.DomainServices.Services
 
                 if (includeUser)
                 {
-                    device.User = await context.Users.FirstOrDefaultAsync(user => user.Id == device.UserId);
+                    device.User = await context
+                                    .Users
+                                    .FirstOrDefaultAsync(user => user.Id == device.UserId)
+                                    .ConfigureAwait(false);
                 }
 
                 return _mapper.Map<Device>(device);
             }
         }
 
-        public async Task DeleteDeviceAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             using (var context = _contextFactory.GetProjectContext())
             {
                 var device = await context
-                    .Devices
-                    .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+                                .Devices
+                                .FirstOrDefaultAsync(_ => _.Id.Equals(id))
+                                .ConfigureAwait(false);
 
                 if (device == null) return;
 
-                await Task.Run(() => context.Devices.Remove(device));
+                await Task.Run(() => context
+                                        .Devices
+                                        .Remove(device))
+                                        .ConfigureAwait(false);
 
                 context.SaveChanges();
             }
         }
 
-        public async Task SaveDeviceAsync(int? id, Device device)
+        public async Task SaveAsync(int? id, Device device)
         {
             if (device == null) return;
 
@@ -86,18 +95,47 @@ namespace Project.DomainServices.Services
                 if (id != null)
                 {
                     chooseDevice = await context
-                        .Devices
-                        .FirstOrDefaultAsync(_ => _.Id.Equals(id));
+                                    .Devices
+                                    .FirstOrDefaultAsync(_ => _.Id.Equals(id))
+                                    .ConfigureAwait(false);
                     _mapper.Map(device, chooseDevice);
                 }
                 else
                 {
                     _mapper.Map(device, chooseDevice);
-                    await context.Devices.AddAsync(chooseDevice);
+                    await context
+                            .Devices
+                            .AddAsync(chooseDevice)
+                            .ConfigureAwait(false);
                 }
 
                 context.SaveChanges();
             }
+        }
+
+        public async Task<IList<Device>> GetPagedAsync(int currentPage, int onPage)
+        {
+            using (var context = _contextFactory.GetProjectContext())
+            {
+                var offset = (currentPage - 1) * onPage;
+
+                var devices = await context
+                                .Devices
+                                .Skip(offset)
+                                .Take(onPage)
+                                .ToListAsync()
+                                .ConfigureAwait(false);
+
+                return devices.Select(item =>
+                        {
+                            var entity = _mapper.Map<Device>(item);
+                            return entity;
+                        }).ToList();
+            }
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
