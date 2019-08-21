@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Project.DependencyInjection.Interfaces;
 using Project.DependencyInjection.Modules;
 using Project.DomainServices.Mapper;
+using Project.WebApi.Extensions;
 using Project.WebApi.Helpers;
 using Project.WebApi.Mapper;
 using Swashbuckle.AspNetCore.Swagger;
@@ -44,10 +46,11 @@ namespace Project.WebApi
 
             Register<DomainModule>(services, Configuration);
             Register<InfrastructureModule>(services, Configuration);
+            RegisterValidators.Register(services, Configuration);
 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddFluentValidation();
 
             services.AddSwaggerGen(c =>
             {
@@ -75,6 +78,7 @@ namespace Project.WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseLogging();
             app.UseMvc();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint

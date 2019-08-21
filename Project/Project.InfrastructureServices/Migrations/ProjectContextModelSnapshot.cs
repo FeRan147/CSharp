@@ -196,6 +196,29 @@ namespace Project.InfrastructureServices.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Project.Infrastructure.Models.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RequestHost");
+
+                    b.Property<string>("RequestMethod");
+
+                    b.Property<string>("RequestPath");
+
+                    b.Property<string>("RequestProtocol");
+
+                    b.Property<string>("ResponseCode");
+
+                    b.Property<string>("ResponseType");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
             modelBuilder.Entity("Project.Infrastructure.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -219,6 +242,20 @@ namespace Project.InfrastructureServices.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "e9e85924-3822-4f20-aa7c-9fc33df0fec2",
+                            Name = "Read/Write/Delete"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "bf817b88-6b8d-43b2-ae76-d1f73aaf4037",
+                            Name = "only Read"
+                        });
                 });
 
             modelBuilder.Entity("Project.Infrastructure.Models.User", b =>
@@ -277,7 +314,7 @@ namespace Project.InfrastructureServices.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3ff2b8b-68a0-43b8-a849-df9765f02623",
+                            ConcurrencyStamp = "06a77598-cac7-409a-81d2-48eb10be541c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
@@ -288,7 +325,7 @@ namespace Project.InfrastructureServices.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4ded5c8d-53f3-4042-bd1f-7cb91d8bc692",
+                            ConcurrencyStamp = "e522a00e-eaaa-40c9-a85f-b23a1f07caa7",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,

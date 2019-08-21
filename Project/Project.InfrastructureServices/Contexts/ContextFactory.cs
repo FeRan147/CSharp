@@ -16,11 +16,6 @@ namespace Project.InfrastructureServices.Contexts
             _configuration = configuration;
         }
 
-        public IFakeProjectContext GetFakeProjectContext()
-        {
-            return new FakeProjectContext();
-        }
-
         public IProjectContext GetProjectContext()
         {
 

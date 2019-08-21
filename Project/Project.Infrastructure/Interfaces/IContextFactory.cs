@@ -6,7 +6,6 @@ namespace Project.Infrastructure.Interfaces
 {
     public interface IContextFactory : IDisposable
     {
-        IFakeProjectContext GetFakeProjectContext();
         IProjectContext GetProjectContext();
     }
 }

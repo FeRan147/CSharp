@@ -7,13 +7,13 @@ using System.Text;
 
 namespace Project.InfrastructureServices.Maps
 {
-    public class DeviceMap: IEntityTypeConfiguration<Device>
+    class LogMap : IEntityTypeConfiguration<Log>
     {
-        public static DeviceMap Instance = new DeviceMap();
+        public static LogMap Instance = new LogMap();
 
-        public void Configure(EntityTypeBuilder<Device> builder)
+        public void Configure(EntityTypeBuilder<Log> builder)
         {
-            builder.HasIndex(d => d.Id).IsUnique();
+            builder.HasIndex(l => l.Id).IsUnique();
         }
     }
 }

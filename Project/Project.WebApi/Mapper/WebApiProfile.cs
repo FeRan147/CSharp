@@ -14,6 +14,8 @@ namespace Project.WebApi.Mapper
         {
             CreateMap<W.Device, D.Device>().ReverseMap();
             CreateMap<W.User, D.User>().ReverseMap();
+            CreateMap<W.Log, D.Log>().ReverseMap();
+            CreateMap<W.Role, D.Role>().ReverseMap();
         }
     }
 }

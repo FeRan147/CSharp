@@ -34,6 +34,20 @@ namespace Project.InfrastructureServices.Contexts
                 }
             );
 
+            builder.Entity<Role>().HasData(
+                new List<Role>()
+                {
+                    new Role
+                    {
+                        Id = 1, Name = "Read/Write/Delete"
+                    },
+                    new Role
+                    {
+                        Id = 2, Name = "only Read"
+                    }
+                }
+            );
+
             builder.Entity<Device>().HasData(
                 new List<Device>()
                 {
@@ -54,5 +68,6 @@ namespace Project.InfrastructureServices.Contexts
         }
 
         public DbSet<Device> Devices { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

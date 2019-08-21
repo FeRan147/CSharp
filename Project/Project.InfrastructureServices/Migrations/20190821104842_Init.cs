@@ -50,6 +50,24 @@ namespace Project.InfrastructureServices.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Logs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RequestHost = table.Column<string>(nullable: true),
+                    RequestPath = table.Column<string>(nullable: true),
+                    RequestMethod = table.Column<string>(nullable: true),
+                    RequestProtocol = table.Column<string>(nullable: true),
+                    ResponseCode = table.Column<string>(nullable: true),
+                    ResponseType = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -177,14 +195,22 @@ namespace Project.InfrastructureServices.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "a3ff2b8b-68a0-43b8-a849-df9765f02623", null, false, false, null, null, null, null, null, false, null, false, "Паша" });
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, "e9e85924-3822-4f20-aa7c-9fc33df0fec2", "Read/Write/Delete", null },
+                    { 2, "bf817b88-6b8d-43b2-ae76-d1f73aaf4037", "only Read", null }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 2, 0, "4ded5c8d-53f3-4042-bd1f-7cb91d8bc692", null, false, false, null, null, null, null, null, false, null, false, "Женя" });
+                values: new object[,]
+                {
+                    { 1, 0, "06a77598-cac7-409a-81d2-48eb10be541c", null, false, false, null, null, null, null, null, false, null, false, "Паша" },
+                    { 2, 0, "e522a00e-eaaa-40c9-a85f-b23a1f07caa7", null, false, false, null, null, null, null, null, false, null, false, "Женя" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Devices",
@@ -273,6 +299,9 @@ namespace Project.InfrastructureServices.Migrations
 
             migrationBuilder.DropTable(
                 name: "Devices");
+
+            migrationBuilder.DropTable(
+                name: "Logs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

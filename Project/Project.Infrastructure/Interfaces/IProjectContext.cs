@@ -10,5 +10,7 @@ namespace Project.Infrastructure.Interfaces
     {
         DbSet<Device> Devices { get; set; }
         DbSet<User> Users { get; set; }
+        DbSet<Log> Logs { get; set; }
+        DbSet<Role> Roles { get; set; }
     }
 }

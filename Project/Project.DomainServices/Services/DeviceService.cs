@@ -83,7 +83,7 @@ namespace Project.DomainServices.Services
             {
                 I.Device chooseDevice = new I.Device();
 
-                if (id == null)
+                if (id != null)
                 {
                     chooseDevice = await context
                         .Devices

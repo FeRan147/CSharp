@@ -83,7 +83,7 @@ namespace Project.DomainServices.Services
             {
                 I.User chooseUser = new I.User();
 
-                if (id == null)
+                if (id != null)
                 {
                     chooseUser = await context
                         .Users

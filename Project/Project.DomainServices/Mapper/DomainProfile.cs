@@ -13,6 +13,8 @@ namespace Project.DomainServices.Mapper
         {
             CreateMap<D.Device, I.Device>().ReverseMap();
             CreateMap<D.User, I.User>().ReverseMap();
+            CreateMap<D.Log, I.Log>().ReverseMap();
+            CreateMap<D.Role, I.Role>().ReverseMap();
         }
     }
 }

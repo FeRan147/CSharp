@@ -14,11 +14,11 @@ namespace Project.DependencyInjection.Modules
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IDeviceFakeService, DeviceFakeService>();
+            services.AddSingleton<ILogService, LogService>();
             services.AddScoped<IDeviceService, DeviceService>();
-            services.AddScoped<IUserFakeService, UserFakeService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IRoleService, RoleService>();
         }
     }
 }
