@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Domain.Interfaces;
 using Project.WebApi.Models;
@@ -10,6 +11,7 @@ using D = Project.Domain.Models;
 
 namespace Project.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RolesController : ControllerBase

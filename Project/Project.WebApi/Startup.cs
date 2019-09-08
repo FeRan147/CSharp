@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -48,6 +49,17 @@ namespace Project.WebApi
             Register<InfrastructureModule>(services, Configuration);
             RegisterValidators.Register(services, Configuration);
 
+            services.AddAuthentication(o =>
+            {
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(o =>
+            {
+                o.Audience = Configuration["Settings:Authentication:ApiName"];
+                o.Authority = Configuration["Settings:Authentication:Authority"];
+            });
+
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddFluentValidation();
@@ -78,7 +90,9 @@ namespace Project.WebApi
             }
 
             app.UseHttpsRedirection();
+
             app.UseLogging();
+
             app.UseMvc();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint

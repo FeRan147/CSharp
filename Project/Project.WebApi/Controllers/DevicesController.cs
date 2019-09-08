@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Domain.Interfaces;
 using Project.WebApi.Interfaces;
@@ -12,6 +13,7 @@ using D = Project.Domain.Models;
 
 namespace Project.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DevicesController : ControllerBase, IBaseController<Device>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Domain.Interfaces;
 using Project.WebApi.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LogController : ControllerBase
