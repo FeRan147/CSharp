@@ -30,7 +30,7 @@ namespace Api.Controllers
         public async Task<object> Login([FromBody] UserViewModel model)
         {
             return await _accountService.LoginAsync(_mapper.Map<D.User>(model),
-                _configuration.GetSection("Identity")[$"JwtKey"], 
+                _configuration.GetSection("Identity")["JwtKey"], 
                 _configuration.GetSection("Identity")["JwtIssuer"], 
                 _configuration.GetSection("Identity")["JwtExpireDays"]);
         }
