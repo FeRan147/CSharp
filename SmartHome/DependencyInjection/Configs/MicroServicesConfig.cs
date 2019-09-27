@@ -14,10 +14,11 @@ namespace DependencyInjection.Configs
         {
             var endpointConfiguration = new EndpointConfiguration(configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-            transport.ConnectionString(configuration.GetConnectionString("RabbitMQConnectionString"));
+            transport.ConnectionString(configuration.GetSection("Transport")["RabbitMQConnectionString"]);
             transport.UsePublisherConfirms(true);
             transport.UseDirectRoutingTopology();
 
+            endpointConfiguration.EnableInstallers();
             endpointConfiguration.EnableCallbacks();
 
             var routerConfig = transport.Routing();
