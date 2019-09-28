@@ -1,50 +1,58 @@
 ﻿using System.Collections.Generic;
+using IdentityInterfaces.Models;
 using InfrastructureInterfaces.Interfaces;
 using InfrastructureInterfaces.Models;
 using InfrastructureServices.Maps;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace InfrastructureServices.Contexts
 {
-    public class DefaultContext : IdentityDbContext<User, Role, int>, IDefaultContext
+    public class DefaultContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IDefaultContext
     {
-        public DefaultContext(DbContextOptions options) : base(options)
-        {
+        private readonly IConfiguration _configuration;
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public DefaultContext(DbContextOptions dbContextOptions, IHttpContextAccessor httpContextAccessor, IConfiguration configuration) : base(dbContextOptions)
+        {
+            _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(DeviceMap.Instance);
 
-            builder.Entity<User>().HasData(
-                new List<User>()
+            builder.Entity<ApplicationUser>().HasData(
+                new List<ApplicationUser>()
                 {
-                    new User
+                    new ApplicationUser
                     {
-                        Id = 1, UserName = "Паша"
+                        Id = "1", UserName = "Паша"
                     },
-                    new User
+                    new ApplicationUser
                     {
-                        Id = 2, UserName = "Женя"
+                        Id = "2", UserName = "Женя"
                     }
                 }
             );
 
-            builder.Entity<Role>().HasData(
-                new List<Role>()
+            builder.Entity<ApplicationRole>().HasData(
+                new List<ApplicationRole>()
                 {
-                    new Role
+                    new ApplicationRole
                     {
-                        Id = 1, Name = "Read/Write/Delete"
+                        Id = "1", Name = "Read/Write/Delete"
                     },
-                    new Role
+                    new ApplicationRole
                     {
-                        Id = 2, Name = "only Read"
+                        Id = "2", Name = "only Read"
                     }
                 }
-            );
+            ); ;
 
             builder.Entity<Device>().HasData(
                 new List<Device>()

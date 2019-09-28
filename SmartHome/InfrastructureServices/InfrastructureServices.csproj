@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IdentityInterfaces\IdentityInterfaces.csproj" />
     <ProjectReference Include="..\InfrastructureInterfaces\InfrastructureInterfaces.csproj" />
   </ItemGroup>
 

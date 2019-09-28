@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IdentityInterfaces.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,8 +13,8 @@ namespace DomainServices.Mapper
         public DomainProfile()
         {
             CreateMap<D.Device, I.Device>().ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
-            CreateMap<D.User, I.User>().ReverseMap();
-            CreateMap<D.Role, I.Role>().ReverseMap();
+            CreateMap<D.User, ApplicationUser>().ReverseMap();
+            CreateMap<D.Role, ApplicationRole>().ReverseMap();
         }
     }
 }

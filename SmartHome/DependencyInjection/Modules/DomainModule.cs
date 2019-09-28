@@ -16,7 +16,6 @@ namespace DependencyInjection.Modules
     {
         public static void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IAccountService, AccountService>();
             services.AddSingleton<IDeviceService, DeviceService>();
 
             services.AddLogging(loggingBuilder => loggingBuilder.AddDebug());

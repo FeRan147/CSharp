@@ -2,7 +2,7 @@
 
 namespace DomainInterfaces.Models
 {
-    public class User : IdentityUser<int>
+    public class User : IdentityUser<string>
     {
     }
 }

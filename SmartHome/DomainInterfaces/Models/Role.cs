@@ -2,7 +2,7 @@
 
 namespace DomainInterfaces.Models
 {
-    public class Role : IdentityRole<int>
+    public class Role : IdentityRole<string>
     {
     }
 }

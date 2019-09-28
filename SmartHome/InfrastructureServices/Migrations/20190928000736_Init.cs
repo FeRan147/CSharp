@@ -12,8 +12,7 @@ namespace InfrastructureServices.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
@@ -27,8 +26,7 @@ namespace InfrastructureServices.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -69,7 +67,7 @@ namespace InfrastructureServices.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -90,7 +88,7 @@ namespace InfrastructureServices.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -112,7 +110,7 @@ namespace InfrastructureServices.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,8 +127,8 @@ namespace InfrastructureServices.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,7 +151,7 @@ namespace InfrastructureServices.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -174,8 +172,8 @@ namespace InfrastructureServices.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "360118a9-80f6-4832-b618-63268673c645", "Read/Write/Delete", null },
-                    { 2, "f3fcadfd-9991-4c83-ae0a-97fa7ec616aa", "only Read", null }
+                    { "1", "e4d7cb1c-5a29-466a-85cd-b3ee82888c54", "Read/Write/Delete", null },
+                    { "2", "7f8934a6-49a4-41a6-a22f-4950ea608c91", "only Read", null }
                 });
 
             migrationBuilder.InsertData(
@@ -183,8 +181,8 @@ namespace InfrastructureServices.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "0793bccd-4dfb-4726-a505-ee04b78ce724", null, false, false, null, null, null, null, null, false, null, false, "Паша" },
-                    { 2, 0, "69fa68ea-bedd-4aa8-a5b7-d8569c48f80e", null, false, false, null, null, null, null, null, false, null, false, "Женя" }
+                    { "1", 0, "275136be-1464-4ea4-b11f-911ef5ceadbf", null, false, false, null, null, null, null, null, false, null, false, "Паша" },
+                    { "2", 0, "e4d4f483-9a76-4e98-94fc-002180676ae8", null, false, false, null, null, null, null, null, false, null, false, "Женя" }
                 });
 
             migrationBuilder.InsertData(
