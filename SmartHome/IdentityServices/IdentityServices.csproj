@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IdentityInterfaces\IdentityInterfaces.csproj" />
+    <ProjectReference Include="..\InfrastructureServices\InfrastructureServices.csproj" />
   </ItemGroup>
 
 </Project>

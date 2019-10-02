@@ -27,7 +27,6 @@ namespace DependencyInjection.Modules
         {
             services.AddSingleton<IContextFactory, ContextFactory>();
             services.AddDbContext<DefaultContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString")));
-            services.AddScoped<DbContext, DefaultContext>();
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<DefaultContext>()
                 .AddRoleStore<ApplicationRoleStore>()

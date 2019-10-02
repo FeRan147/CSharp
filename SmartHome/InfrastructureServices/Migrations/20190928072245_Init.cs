@@ -172,8 +172,8 @@ namespace InfrastructureServices.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "e4d7cb1c-5a29-466a-85cd-b3ee82888c54", "Read/Write/Delete", null },
-                    { "2", "7f8934a6-49a4-41a6-a22f-4950ea608c91", "only Read", null }
+                    { "1", "02237612-3cf2-45b6-8f9e-48f3978f790b", "Read/Write/Delete", null },
+                    { "2", "380d59fe-7604-4ce4-b033-26e6b6664eff", "only Read", null }
                 });
 
             migrationBuilder.InsertData(
@@ -181,8 +181,8 @@ namespace InfrastructureServices.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "275136be-1464-4ea4-b11f-911ef5ceadbf", null, false, false, null, null, null, null, null, false, null, false, "Паша" },
-                    { "2", 0, "e4d4f483-9a76-4e98-94fc-002180676ae8", null, false, false, null, null, null, null, null, false, null, false, "Женя" }
+                    { "1", 0, "dac812f0-8863-4f58-95ae-67a396049b25", null, false, false, null, null, null, null, null, false, null, false, "Паша" },
+                    { "2", 0, "44771e24-6328-472d-83aa-5db418e0eb8a", null, false, false, null, null, null, null, null, false, null, false, "Женя" }
                 });
 
             migrationBuilder.InsertData(

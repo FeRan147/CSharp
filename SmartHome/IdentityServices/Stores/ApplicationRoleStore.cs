@@ -1,5 +1,6 @@
 ﻿using IdentityInterfaces.Interfaces;
 using IdentityInterfaces.Models;
+using InfrastructureServices.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace IdentityServices.Stores
 {
-    public class ApplicationRoleStore : RoleStore<ApplicationRole>, IApplicationRoleStore
+    public class ApplicationRoleStore : RoleStore<ApplicationRole, DefaultContext>, IApplicationRoleStore
     {
-        public ApplicationRoleStore(DbContext context, IdentityErrorDescriber describer = null) : base(context, describer)
+        public ApplicationRoleStore(DefaultContext context, IdentityErrorDescriber describer = null) : base(context, describer)
         {
         }
 

@@ -39,7 +39,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<object> Login(UserViewModel userVM)
         {
-            var result = await _signInManager.PasswordSignInAsync(userVM.UserName, userVM.PasswordHash, false, false);
+            var result = await _signInManager.PasswordSignInAsync(userVM.UserName, userVM.Password, false, false);
 
             if (result.Succeeded)
             {
@@ -53,12 +53,14 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<object> Register(UserViewModel userVM)
         {
-            var result = await _userManager.CreateAsync(_mapper.Map<AIM.ApplicationUser>(userVM));
+            var user = _mapper.Map<AIM.ApplicationUser>(userVM);
+
+            var result = await _userManager.CreateAsync(user, userVM.Password);
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(_mapper.Map<AIM.ApplicationUser>(userVM), false);
-                return GenerateJwtToken(_mapper.Map<AIM.ApplicationUser>(userVM));
+                await _signInManager.SignInAsync(user, false);
+                return GenerateJwtToken(user);
             }
 
             return result.Errors;

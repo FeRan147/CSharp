@@ -46,13 +46,13 @@ namespace InfrastructureServices.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "e4d7cb1c-5a29-466a-85cd-b3ee82888c54",
+                            ConcurrencyStamp = "02237612-3cf2-45b6-8f9e-48f3978f790b",
                             Name = "Read/Write/Delete"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "7f8934a6-49a4-41a6-a22f-4950ea608c91",
+                            ConcurrencyStamp = "380d59fe-7604-4ce4-b033-26e6b6664eff",
                             Name = "only Read"
                         });
                 });
@@ -112,7 +112,7 @@ namespace InfrastructureServices.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "275136be-1464-4ea4-b11f-911ef5ceadbf",
+                            ConcurrencyStamp = "dac812f0-8863-4f58-95ae-67a396049b25",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
@@ -123,7 +123,7 @@ namespace InfrastructureServices.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e4d4f483-9a76-4e98-94fc-002180676ae8",
+                            ConcurrencyStamp = "44771e24-6328-472d-83aa-5db418e0eb8a",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,

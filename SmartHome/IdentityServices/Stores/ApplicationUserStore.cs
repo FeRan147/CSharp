@@ -1,5 +1,6 @@
 ﻿using IdentityInterfaces.Interfaces;
 using IdentityInterfaces.Models;
+using InfrastructureServices.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace IdentityServices.Stores
 {
-    public class ApplicationUserStore : UserStore<ApplicationUser>, IApplicationUserStore
+    public class ApplicationUserStore : UserStore<ApplicationUser, ApplicationRole, DefaultContext>, IApplicationUserStore
     {
-        public ApplicationUserStore(DbContext context, IdentityErrorDescriber describer = null) : base(context, describer)
+        public ApplicationUserStore(DefaultContext context, IdentityErrorDescriber describer = null) : base(context, describer)
         {
         }
 
@@ -346,7 +347,7 @@ namespace IdentityServices.Stores
             return base.CreateUserLogin(user, login);
         }
 
-        protected override IdentityUserRole<string> CreateUserRole(ApplicationUser user, IdentityRole role)
+        protected override IdentityUserRole<string> CreateUserRole(ApplicationUser user, ApplicationRole role)
         {
             return base.CreateUserRole(user, role);
         }
@@ -356,7 +357,7 @@ namespace IdentityServices.Stores
             return base.CreateUserToken(user, loginProvider, name, value);
         }
 
-        protected override Task<IdentityRole> FindRoleAsync(string normalizedRoleName, CancellationToken cancellationToken)
+        protected override Task<ApplicationRole> FindRoleAsync(string normalizedRoleName, CancellationToken cancellationToken)
         {
             return base.FindRoleAsync(normalizedRoleName, cancellationToken);
         }
