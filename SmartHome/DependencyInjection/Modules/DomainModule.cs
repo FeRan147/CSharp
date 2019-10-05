@@ -20,7 +20,7 @@ namespace DependencyInjection.Modules
 
             services.AddLogging(loggingBuilder => loggingBuilder.AddDebug());
 
-            var endpoint = Endpoint.Start(MicroServicesConfig.GetEndpointConfiguration(services, configuration)).GetAwaiter().GetResult();
+            var endpoint = MicroServicesConfig.GetEndpointConfiguration(services, configuration);
             services.AddScoped(typeof(IEndpointInstance), x => endpoint);
         }
     }

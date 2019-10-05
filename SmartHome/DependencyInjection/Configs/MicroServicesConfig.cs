@@ -5,13 +5,17 @@ using DomainInterfaces.Messages.Device;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using NServiceBus.ObjectBuilder.MSDependencyInjection;
 
 namespace DependencyInjection.Configs
 {
     public static class MicroServicesConfig
     {
-        public static EndpointConfiguration GetEndpointConfiguration(IServiceCollection services, IConfiguration configuration)
+        public static IEndpointInstance GetEndpointConfiguration(IServiceCollection services, IConfiguration configuration)
         {
+            IEndpointInstance endpointInstance = null;
+            services.AddSingleton<IMessageSession>(_ => endpointInstance);
+
             var endpointConfiguration = new EndpointConfiguration(configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transport.ConnectionString(configuration.GetSection("Transport")["RabbitMQConnectionString"]);
@@ -36,13 +40,21 @@ namespace DependencyInjection.Configs
             var discriminator = configuration.GetSection("MicroServices").GetSection("Discriminator").Value;
             endpointConfiguration.MakeInstanceUniquelyAddressable(discriminator);
 
+            UpdateableServiceProvider container = null;
             endpointConfiguration.UseContainer<ServicesBuilder>(
                 customizations: customizations =>
                 {
                     customizations.ExistingServices(services);
+                    customizations.ServiceProviderFactory(service =>
+                    {
+                        container = new UpdateableServiceProvider(service);
+                        return container;
+                    });
                 });
 
-            return endpointConfiguration;
+            endpointInstance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+
+            return endpointInstance;
         }
     }
 }
