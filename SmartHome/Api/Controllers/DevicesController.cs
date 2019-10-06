@@ -11,7 +11,7 @@ using DomainInterfaces.Interfaces;
 using D = DomainInterfaces.Models;
 using NServiceBus;
 using System.Net;
-using DomainInterfaces.Messages.Services.Devices;
+using MicroServices.Messages.Devices;
 
 namespace Api.Controllers
 {

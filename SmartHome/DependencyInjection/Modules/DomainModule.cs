@@ -8,6 +8,8 @@ using DomainInterfaces.Interfaces;
 using DomainServices.Services;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
+using MicroServices.Configuration;
+using BrokerMQTT.Configuration;
 
 namespace DependencyInjection.Modules
 {
@@ -28,9 +30,11 @@ namespace DependencyInjection.Modules
         {
             _services.AddSingleton<IDeviceService, DeviceService>();
 
-            new MicroServicesConfig(_services, _configuration, _logger).Configure();
+            new MicroServicesConfiguration(_services, _configuration, _logger).Configure();
 
-            new MqttServerServiceConfig(_services, _configuration, _logger).Configure();
+            new MqttServerServiceConfiguration(_services, _configuration, _logger).Configure();
+
+            new MqttLoggerConfiguration(_services, _configuration, _logger).Configure();
         }
     }
 }

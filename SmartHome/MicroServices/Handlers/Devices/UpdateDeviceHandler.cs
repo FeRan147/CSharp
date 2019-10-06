@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DomainInterfaces.Interfaces;
-using DomainInterfaces.Messages.Services.Devices;
 using InfrastructureInterfaces.Interfaces;
+using MicroServices.Messages.Devices;
 using NServiceBus;
 using NServiceBus.Logging;
 
-namespace DomainServices.Handlers.Services.Devices
+namespace MicroServices.Handlers.Devices
 {
     public class UpdateDeviceHandler :
         IHandleMessages<UpdateDevice>

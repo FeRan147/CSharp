@@ -11,15 +11,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DependencyInjection.Configs
+namespace IdentityServices.Configuration
 {
-    public class IdentityConfig
+    public class IdentityConfiguration
     {
         private IServiceCollection _services;
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
 
-        public IdentityConfig(IServiceCollection services, IConfiguration configuration, ILogger logger)
+        public IdentityConfiguration(IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             _services = services;
             _configuration = configuration;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NServiceBus;
 
-namespace DomainInterfaces.Messages.Services.Devices
+namespace MicroServices.Messages.Devices
 {
     public class RemoveDevice : IMessage
     {

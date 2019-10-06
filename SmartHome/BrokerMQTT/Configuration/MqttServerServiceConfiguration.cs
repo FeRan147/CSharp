@@ -12,15 +12,15 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DependencyInjection.Configs
+namespace BrokerMQTT.Configuration
 {
-    public class MqttServerServiceConfig
+    public class MqttServerServiceConfiguration
     {
         private IServiceCollection _services;
         private IConfiguration _configuration;
         private readonly ILogger _logger;
 
-        public MqttServerServiceConfig(IServiceCollection services, IConfiguration configuration, ILogger logger)
+        public MqttServerServiceConfiguration(IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             _services = services;
             _configuration = configuration;
@@ -39,17 +39,6 @@ namespace DependencyInjection.Configs
                 .AddMqttConnectionHandler()
                 .AddMqttWebSocketServerAdapter()
                 .AddConnections();
-
-            MqttNetGlobalLogger.LogMessagePublished += (s, e) =>
-            {
-                var trace = $"[MQTT --> {e.TraceMessage.Timestamp:O}] [{e.TraceMessage.ThreadId}] [{e.TraceMessage.Source}] [{e.TraceMessage.Level}]: {e.TraceMessage.Message}";
-                if (e.TraceMessage.Exception != null)
-                {
-                    trace += e.TraceMessage.Exception.ToString();
-                }
-
-                _logger.LogInformation(trace);
-            };
         }
     }
 }

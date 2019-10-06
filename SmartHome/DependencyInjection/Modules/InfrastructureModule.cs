@@ -20,6 +20,7 @@ using IdentityInterfaces.Interfaces;
 using IdentityServices.Managers;
 using DependencyInjection.Configs;
 using Microsoft.Extensions.Logging;
+using IdentityServices.Configuration;
 
 namespace DependencyInjection.Modules
 {
@@ -41,7 +42,7 @@ namespace DependencyInjection.Modules
             _services.AddSingleton<IContextFactory, ContextFactory>();
             _services.AddDbContext<DefaultContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnectionString")));
 
-            new IdentityConfig(_services, _configuration, _logger).Configure();
+            new IdentityConfiguration(_services, _configuration, _logger).Configure();
 
             new JwtConfig(_services, _configuration, _logger).Configure();
         }

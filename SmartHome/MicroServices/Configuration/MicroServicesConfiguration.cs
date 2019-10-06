@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DomainInterfaces.Messages.Services.Devices;
+using MicroServices.Messages.Devices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 using NServiceBus.ObjectBuilder.MSDependencyInjection;
 
-namespace DependencyInjection.Configs
+namespace MicroServices.Configuration
 {
-    public class MicroServicesConfig
+    public class MicroServicesConfiguration
     {
         private IServiceCollection _services;
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
 
-        public MicroServicesConfig(IServiceCollection services, IConfiguration configuration, ILogger logger)
+        public MicroServicesConfiguration(IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             _services = services;
             _configuration = configuration;

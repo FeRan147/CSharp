@@ -1,17 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <ApplicationIcon />
-    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
     <PackageReference Include="NServiceBus" Version="7.1.10" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+    <PackageReference Include="NServiceBus.Callbacks" Version="3.0.0" />
+    <PackageReference Include="NServiceBus.MSDependencyInjection" Version="0.1.4" />
+    <PackageReference Include="NServiceBus.RabbitMQ" Version="5.1.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,10 +4,11 @@ using System.Text;
 using NServiceBus;
 using DomainInterfaces.Models;
 
-namespace DomainInterfaces.Messages.Services.Devices
+namespace MicroServices.Messages.Devices
 {
-    public class AddDevice : IMessage
+    public class UpdateDevice : IMessage
     {
+        public int Id { get; set; }
         public Device Device { get; set; }
     }
 }
