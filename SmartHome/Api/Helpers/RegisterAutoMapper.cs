@@ -13,7 +13,7 @@ namespace Api.Helpers
     public class RegisterAutoMapper
     {
         private IServiceCollection _services;
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public RegisterAutoMapper(IServiceCollection services, IConfiguration configuration)
         {

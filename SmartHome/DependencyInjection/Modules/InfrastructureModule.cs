@@ -19,18 +19,21 @@ using IdentityServices.Stores;
 using IdentityInterfaces.Interfaces;
 using IdentityServices.Managers;
 using DependencyInjection.Configs;
+using Microsoft.Extensions.Logging;
 
 namespace DependencyInjection.Modules
 {
     public class InfrastructureModule
     {
         private IServiceCollection _services;
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger _logger;
 
-        public InfrastructureModule(IServiceCollection services, IConfiguration configuration)
+        public InfrastructureModule(IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             _services = services;
             _configuration = configuration;
+            _logger = logger;
         }
 
         public void Register()
@@ -38,9 +41,9 @@ namespace DependencyInjection.Modules
             _services.AddSingleton<IContextFactory, ContextFactory>();
             _services.AddDbContext<DefaultContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnectionString")));
 
-            new IdentityConfig(_services, _configuration).Configure();
+            new IdentityConfig(_services, _configuration, _logger).Configure();
 
-            new JwtConfig(_services, _configuration).Configure();
+            new JwtConfig(_services, _configuration, _logger).Configure();
         }
     }
 }

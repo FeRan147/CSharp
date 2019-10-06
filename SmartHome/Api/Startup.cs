@@ -20,18 +20,23 @@ namespace Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly ILogger<Startup> _logger;
 
         public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        {
+            _logger = logger;
+            Configuration = configuration; 
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(loggingBuilder => loggingBuilder.AddDebug());
+
             new RegisterAutoMapper(services, Configuration).Register();
-            new RegisterDependencyInjectionModules(services, Configuration).Register();
+            new RegisterDependencyInjectionModules(services, Configuration, _logger).Register();
             new RegisterValidators(services, Configuration).Register();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DomainInterfaces.Messages.Devices;
+using DomainInterfaces.Messages.Services.Devices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NServiceBus;
 using NServiceBus.ObjectBuilder.MSDependencyInjection;
 
@@ -12,12 +13,14 @@ namespace DependencyInjection.Configs
     public class MicroServicesConfig
     {
         private IServiceCollection _services;
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger _logger;
 
-        public MicroServicesConfig(IServiceCollection services, IConfiguration configuration)
+        public MicroServicesConfig(IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             _services = services;
             _configuration = configuration;
+            _logger = logger;
         }
 
         public void Configure()

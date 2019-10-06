@@ -4,7 +4,7 @@ using System.Text;
 using NServiceBus;
 using DomainInterfaces.Models;
 
-namespace DomainInterfaces.Messages.Devices
+namespace DomainInterfaces.Messages.Services.Devices
 {
     public class UpdateDevice : IMessage
     {

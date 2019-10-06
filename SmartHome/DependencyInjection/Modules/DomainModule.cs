@@ -14,23 +14,23 @@ namespace DependencyInjection.Modules
     public class DomainModule
     {
         private IServiceCollection _services;
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger _logger;
 
-        public DomainModule(IServiceCollection services, IConfiguration configuration)
+        public DomainModule(IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             _services = services;
             _configuration = configuration;
+            _logger = logger;
         }
 
         public void Register()
         {
             _services.AddSingleton<IDeviceService, DeviceService>();
 
-            _services.AddLogging(loggingBuilder => loggingBuilder.AddDebug());
+            new MicroServicesConfig(_services, _configuration, _logger).Configure();
 
-            new MicroServicesConfig(_services, _configuration).Configure();
-
-            new MqttServerServiceConfig(_services, _configuration).Configure();
+            new MqttServerServiceConfig(_services, _configuration, _logger).Configure();
         }
     }
 }

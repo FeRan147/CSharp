@@ -13,7 +13,7 @@ namespace Api.Helpers
     public class RegisterValidators
     {
         private IServiceCollection _services;
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public RegisterValidators(IServiceCollection services, IConfiguration configuration)
         {
