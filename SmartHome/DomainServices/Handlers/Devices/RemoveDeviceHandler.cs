@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DomainInterfaces.Interfaces;
-using DomainInterfaces.Messages.Device;
+using DomainInterfaces.Messages.Devices;
 using InfrastructureInterfaces.Interfaces;
 using NServiceBus;
 using NServiceBus.Logging;
 
-namespace DomainServices.Handlers.Device
+namespace DomainServices.Handlers.Devices
 {
     public class RemoveDeviceHandler :
         IHandleMessages<RemoveDevice>

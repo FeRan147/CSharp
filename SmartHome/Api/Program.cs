@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MQTTnet.AspNetCore;
 
 namespace Api
 {
@@ -36,8 +37,19 @@ namespace Api
                 .ConfigureAwait(false);
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var configuration = new ConfigurationBuilder()
+                                .AddJsonFile("appsettings.json", optional: false)
+                                .Build();
+
+            return WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(o =>
+                {
+                    o.ListenAnyIP(int.Parse(configuration.GetSection("MQTT").GetSection("Port").Value), l => l.UseMqtt());
+                    o.ListenAnyIP(int.Parse(configuration.GetSection("Application").GetSection("Port").Value)); // default http pipeline
+                })
                 .UseStartup<Startup>();
+        }
     }
 }

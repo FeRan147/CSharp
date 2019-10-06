@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
+using MQTTnet.AspNetCore;
 using NServiceBus;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -29,9 +30,9 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            RegisterAutoMapper.Register(services, Configuration);
-            RegisterDependencyInjectionModules.Register(services, Configuration);
-            RegisterValidators.Register(services, Configuration);
+            new RegisterAutoMapper(services, Configuration).Register();
+            new RegisterDependencyInjectionModules(services, Configuration).Register();
+            new RegisterValidators(services, Configuration).Register();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -42,7 +43,7 @@ namespace Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {

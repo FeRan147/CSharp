@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using NServiceBus;
 
-namespace DomainInterfaces.Messages.Device
+namespace DomainInterfaces.Messages.Devices
 {
-    public class UpdateDevice : IMessage
+    public class RemoveDevice : IMessage
     {
         public int Id { get; set; }
-        public Models.Device Device { get; set; }
     }
 }

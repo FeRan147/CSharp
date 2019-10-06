@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using NServiceBus;
+using DomainInterfaces.Models;
 
-namespace DomainInterfaces.Messages.Device
+namespace DomainInterfaces.Messages.Devices
 {
     public class AddDevice : IMessage
     {
-        public Models.Device Device { get; set; }
+        public Device Device { get; set; }
     }
 }

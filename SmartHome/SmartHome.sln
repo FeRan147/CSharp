@@ -21,7 +21,7 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "UI", "UI\UI.njsproj", "{903
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServices", "IdentityServices\IdentityServices.csproj", "{262E739E-1FA4-4567-9F8A-C92A574725B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityInterfaces", "IdentityInterfaces\IdentityInterfaces.csproj", "{7482C19D-D764-4613-8E6E-2EACC77B5724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityInterfaces", "IdentityInterfaces\IdentityInterfaces.csproj", "{7482C19D-D764-4613-8E6E-2EACC77B5724}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

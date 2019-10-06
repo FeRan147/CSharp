@@ -12,7 +12,16 @@ namespace Api.Helpers
 {
     public class RegisterAutoMapper
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        private IServiceCollection _services;
+        private IConfiguration _configuration;
+
+        public RegisterAutoMapper(IServiceCollection services, IConfiguration configuration)
+        {
+            _services = services;
+            _configuration = configuration;
+        }
+
+        public void Register()
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -22,7 +31,7 @@ namespace Api.Helpers
 
             IMapper mapper = mappingConfig.CreateMapper();
 
-            services.AddSingleton(mapper);
+            _services.AddSingleton(mapper);
         }
     }
 }

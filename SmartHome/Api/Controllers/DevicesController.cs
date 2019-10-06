@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using DomainInterfaces.Interfaces;
 using D = DomainInterfaces.Models;
 using NServiceBus;
-using DomainInterfaces.Messages.Device;
 using System.Net;
+using DomainInterfaces.Messages.Devices;
 
 namespace Api.Controllers
 {

@@ -5,23 +5,32 @@ using System.Collections.Generic;
 using System.Text;
 using DependencyInjection.Configs;
 using DomainInterfaces.Interfaces;
-using DomainInterfaces.Messages.Device;
 using DomainServices.Services;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 
 namespace DependencyInjection.Modules
 {
-    public static class DomainModule
+    public class DomainModule
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        private IServiceCollection _services;
+        private IConfiguration _configuration;
+
+        public DomainModule(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IDeviceService, DeviceService>();
+            _services = services;
+            _configuration = configuration;
+        }
 
-            services.AddLogging(loggingBuilder => loggingBuilder.AddDebug());
+        public void Register()
+        {
+            _services.AddSingleton<IDeviceService, DeviceService>();
 
-            var endpoint = MicroServicesConfig.GetEndpointConfiguration(services, configuration);
-            services.AddScoped(typeof(IEndpointInstance), x => endpoint);
+            _services.AddLogging(loggingBuilder => loggingBuilder.AddDebug());
+
+            new MicroServicesConfig(_services, _configuration).Configure();
+
+            new MqttServerServiceConfig(_services, _configuration).Configure();
         }
     }
 }

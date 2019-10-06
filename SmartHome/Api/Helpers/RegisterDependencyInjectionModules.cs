@@ -8,12 +8,21 @@ using System.Threading.Tasks;
 
 namespace Api.Helpers
 {
-    public static class RegisterDependencyInjectionModules
+    public class RegisterDependencyInjectionModules
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        private IServiceCollection _services;
+        private IConfiguration _configuration;
+
+        public RegisterDependencyInjectionModules(IServiceCollection services, IConfiguration configuration)
         {
-            InfrastructureModule.Register(services, configuration);
-            DomainModule.Register(services, configuration);
+            _services = services;
+            _configuration = configuration;
+        }
+
+        public void Register()
+        {
+            new InfrastructureModule(_services, _configuration).Register();
+            new DomainModule(_services, _configuration).Register();
         }
     }
 }
