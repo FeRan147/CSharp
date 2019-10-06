@@ -9,23 +9,12 @@ using System.Threading.Tasks;
 
 namespace Api.Helpers
 {
-    public class RegisterDependencyInjectionModules
+    public static class RegisterDependencyInjectionModules
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-
-        public RegisterDependencyInjectionModules(IServiceCollection services, IConfiguration configuration, ILogger logger)
+        public static void Register(IServiceCollection services, IConfiguration configuration)
         {
-            _services = services;
-            _configuration = configuration;
-            _logger = logger;
-        }
-
-        public void Register()
-        {
-            new InfrastructureModule(_services, _configuration, _logger).Register();
-            new DomainModule(_services, _configuration, _logger).Register();
+            InfrastructureModule.Register(services, configuration);
+            DomainModule.Register(services, configuration);
         }
     }
 }

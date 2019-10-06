@@ -10,27 +10,16 @@ using NServiceBus.ObjectBuilder.MSDependencyInjection;
 
 namespace MicroServices.Configuration
 {
-    public class MicroServicesConfiguration
+    public static class MicroServicesConfiguration
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-
-        public MicroServicesConfiguration(IServiceCollection services, IConfiguration configuration, ILogger logger)
-        {
-            _services = services;
-            _configuration = configuration;
-            _logger = logger;
-        }
-
-        public void Configure()
+        public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
             IEndpointInstance endpointInstance = null;
-            _services.AddSingleton<IMessageSession>(_ => endpointInstance);
+            services.AddSingleton<IMessageSession>(_ => endpointInstance);
 
-            var endpointConfiguration = new EndpointConfiguration(_configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+            var endpointConfiguration = new EndpointConfiguration(configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-            transport.ConnectionString(_configuration.GetSection("Transport")["RabbitMQConnectionString"]);
+            transport.ConnectionString(configuration.GetSection("Transport")["RabbitMQConnectionString"]);
             transport.UsePublisherConfirms(true);
             transport.UseDirectRoutingTopology();
 
@@ -41,22 +30,22 @@ namespace MicroServices.Configuration
 
             routerConfig.RouteToEndpoint(
                 assembly: typeof(AddDevice).Assembly,
-                destination: _configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             routerConfig.RouteToEndpoint(
                 assembly: typeof(UpdateDevice).Assembly,
-                destination: _configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             routerConfig.RouteToEndpoint(
                 assembly: typeof(RemoveDevice).Assembly,
-                destination: _configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
 
-            var discriminator = _configuration.GetSection("MicroServices").GetSection("Discriminator").Value;
+            var discriminator = configuration.GetSection("MicroServices").GetSection("Discriminator").Value;
             endpointConfiguration.MakeInstanceUniquelyAddressable(discriminator);
 
             UpdateableServiceProvider container = null;
             endpointConfiguration.UseContainer<ServicesBuilder>(
                 customizations: customizations =>
                 {
-                    customizations.ExistingServices(_services);
+                    customizations.ExistingServices(services);
                     customizations.ServiceProviderFactory(service =>
                     {
                         container = new UpdateableServiceProvider(service);
@@ -66,7 +55,7 @@ namespace MicroServices.Configuration
 
             endpointInstance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
 
-            _services.AddScoped(typeof(IEndpointInstance), x => endpointInstance);
+            services.AddScoped(typeof(IEndpointInstance), x => endpointInstance);
         }
     }
 }

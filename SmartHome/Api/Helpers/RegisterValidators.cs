@@ -10,20 +10,11 @@ using System.Threading.Tasks;
 
 namespace Api.Helpers
 {
-    public class RegisterValidators
+    public static class RegisterValidators
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-
-        public RegisterValidators(IServiceCollection services, IConfiguration configuration)
+        public static void Register(IServiceCollection services, IConfiguration configuration)
         {
-            _services = services;
-            _configuration = configuration;
-        }
-
-        public void Register()
-        {
-            _services.AddSingleton<IValidator<DeviceViewModel>, DeviceViewModelValidator>();
+            services.AddSingleton<IValidator<DeviceViewModel>, DeviceViewModelValidator>();
         }
     }
 }

@@ -24,27 +24,16 @@ using IdentityServices.Configuration;
 
 namespace DependencyInjection.Modules
 {
-    public class InfrastructureModule
+    public static class InfrastructureModule
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-
-        public InfrastructureModule(IServiceCollection services, IConfiguration configuration, ILogger logger)
+        public static void Register(IServiceCollection services, IConfiguration configuration)
         {
-            _services = services;
-            _configuration = configuration;
-            _logger = logger;
-        }
+            services.AddSingleton<IContextFactory, ContextFactory>();
+            services.AddDbContext<DefaultContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString")));
 
-        public void Register()
-        {
-            _services.AddSingleton<IContextFactory, ContextFactory>();
-            _services.AddDbContext<DefaultContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnectionString")));
+            IdentityConfiguration.Configure(services, configuration);
 
-            new IdentityConfiguration(_services, _configuration, _logger).Configure();
-
-            new JwtConfig(_services, _configuration, _logger).Configure();
+            JwtConfig.Configure(services, configuration);
         }
     }
 }

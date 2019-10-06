@@ -9,32 +9,22 @@ using DomainServices.Services;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 using MicroServices.Configuration;
-using BrokerMQTT.Configuration;
+using MQTTBroker.Configuration;
+using MQTTBroker;
 
 namespace DependencyInjection.Modules
 {
-    public class DomainModule
+    public static class DomainModule
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-
-        public DomainModule(IServiceCollection services, IConfiguration configuration, ILogger logger)
+        public static void Register(IServiceCollection services, IConfiguration configuration)
         {
-            _services = services;
-            _configuration = configuration;
-            _logger = logger;
-        }
+            services.AddSingleton<IDeviceService, DeviceService>();
 
-        public void Register()
-        {
-            _services.AddSingleton<IDeviceService, DeviceService>();
+            MicroServicesConfiguration.Configure(services, configuration);
 
-            new MicroServicesConfiguration(_services, _configuration, _logger).Configure();
+            MqttServerServiceConfiguration.Configure(services, configuration);
 
-            new MqttServerServiceConfiguration(_services, _configuration, _logger).Configure();
-
-            new MqttLoggerConfiguration(_services, _configuration, _logger).Configure();
+            ManagedClient.RunAsync(services, configuration).GetAwaiter().GetResult();
         }
     }
 }

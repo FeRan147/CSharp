@@ -10,18 +10,9 @@ using DomainServices.Mapper;
 
 namespace Api.Helpers
 {
-    public class RegisterAutoMapper
+    public static class RegisterAutoMapper
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-
-        public RegisterAutoMapper(IServiceCollection services, IConfiguration configuration)
-        {
-            _services = services;
-            _configuration = configuration;
-        }
-
-        public void Register()
+        public static void Register(IServiceCollection services, IConfiguration configuration)
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -31,7 +22,7 @@ namespace Api.Helpers
 
             IMapper mapper = mappingConfig.CreateMapper();
 
-            _services.AddSingleton(mapper);
+            services.AddSingleton(mapper);
         }
     }
 }

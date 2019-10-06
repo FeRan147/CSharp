@@ -10,24 +10,13 @@ using System.Text;
 
 namespace DependencyInjection.Configs
 {
-    public class JwtConfig
+    public static class JwtConfig
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-
-        public JwtConfig(IServiceCollection services, IConfiguration configuration, ILogger logger)
-        {
-            _services = services;
-            _configuration = configuration;
-            _logger = logger;
-        }
-
-        public void Configure()
+        public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            _services
+            services
                 .AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -41,9 +30,9 @@ namespace DependencyInjection.Configs
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = _configuration.GetSection("Identity")["JwtIssuer"],
-                        ValidAudience = _configuration.GetSection("Identity")["JwtIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Identity")["JwtKey"])),
+                        ValidIssuer = configuration.GetSection("Identity")["JwtIssuer"],
+                        ValidAudience = configuration.GetSection("Identity")["JwtIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Identity")["JwtKey"])),
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });

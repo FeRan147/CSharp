@@ -20,13 +20,10 @@ namespace Api
 {
     public class Startup
     {
-        private readonly ILogger<Startup> _logger;
-
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration)
         {
-            _logger = logger;
             Configuration = configuration; 
         }
 
@@ -35,9 +32,9 @@ namespace Api
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddDebug());
 
-            new RegisterAutoMapper(services, Configuration).Register();
-            new RegisterDependencyInjectionModules(services, Configuration, _logger).Register();
-            new RegisterValidators(services, Configuration).Register();
+            RegisterAutoMapper.Register(services, Configuration);
+            RegisterDependencyInjectionModules.Register(services, Configuration);
+            RegisterValidators.Register(services, Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

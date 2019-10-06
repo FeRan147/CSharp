@@ -13,22 +13,11 @@ using System.Text;
 
 namespace IdentityServices.Configuration
 {
-    public class IdentityConfiguration
+    public static class IdentityConfiguration
     {
-        private IServiceCollection _services;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger _logger;
-
-        public IdentityConfiguration(IServiceCollection services, IConfiguration configuration, ILogger logger)
+        public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
-            _services = services;
-            _configuration = configuration;
-            _logger = logger;
-        }
-
-        public void Configure()
-        {
-            _services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<DefaultContext>()
                 .AddRoleStore<ApplicationRoleStore>()
                 .AddUserStore<ApplicationUserStore>()
@@ -37,11 +26,11 @@ namespace IdentityServices.Configuration
                 .AddSignInManager<ApplicationSignInManager>()
                 .AddDefaultTokenProviders();
 
-            _services.AddTransient<IApplicationUserManager, ApplicationUserManager>();
-            _services.AddTransient<IApplicationSignInManager, ApplicationSignInManager>();
-            _services.AddTransient<IApplicationRoleManager, ApplicationRoleManager>();
-            _services.AddTransient<IApplicationUserStore, ApplicationUserStore>();
-            _services.AddTransient<IApplicationRoleStore, ApplicationRoleStore>();
+            services.AddTransient<IApplicationUserManager, ApplicationUserManager>();
+            services.AddTransient<IApplicationSignInManager, ApplicationSignInManager>();
+            services.AddTransient<IApplicationRoleManager, ApplicationRoleManager>();
+            services.AddTransient<IApplicationUserStore, ApplicationUserStore>();
+            services.AddTransient<IApplicationRoleStore, ApplicationRoleStore>();
         }
     }
 }

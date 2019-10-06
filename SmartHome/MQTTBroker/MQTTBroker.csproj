@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="MQTTnet" Version="3.0.8" />
     <PackageReference Include="MQTTnet.AspNetCore" Version="3.0.8" />
+    <PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="3.0.8" />
   </ItemGroup>
 
 </Project>
