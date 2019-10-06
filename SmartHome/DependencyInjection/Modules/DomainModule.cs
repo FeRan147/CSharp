@@ -23,8 +23,6 @@ namespace DependencyInjection.Modules
             MicroServicesConfiguration.Configure(services, configuration);
 
             MqttServerServiceConfiguration.Configure(services, configuration);
-
-            ManagedClient.RunAsync(services, configuration).GetAwaiter().GetResult();
         }
     }
 }
