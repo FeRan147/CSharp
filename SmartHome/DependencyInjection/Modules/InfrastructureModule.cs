@@ -33,7 +33,7 @@ namespace DependencyInjection.Modules
 
             IdentityConfiguration.Configure(services, configuration);
 
-            JwtConfig.Configure(services, configuration);
+            JwtConfiguration.Configure(services, configuration);
         }
     }
 }

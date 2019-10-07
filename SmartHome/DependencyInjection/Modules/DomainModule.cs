@@ -9,8 +9,8 @@ using DomainServices.Services;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 using MicroServices.Configuration;
-using MQTTBroker.Configuration;
-using MQTTBroker;
+using MqttBroker.Configuration;
+using MqttBroker;
 
 namespace DependencyInjection.Modules
 {

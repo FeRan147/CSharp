@@ -10,7 +10,7 @@ using System.Text;
 
 namespace DependencyInjection.Configs
 {
-    public static class JwtConfig
+    public static class JwtConfiguration
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)
         {

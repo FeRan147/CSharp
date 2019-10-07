@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityInterfaces", "Ident
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServices", "MicroServices\MicroServices.csproj", "{1E702D7A-3039-4435-98A5-2AB2F84E0349}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTTBroker", "MQTTBroker\MQTTBroker.csproj", "{74B87F41-AF22-44E5-A827-501907751723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MqttBroker", "MQTTBroker\MqttBroker.csproj", "{74B87F41-AF22-44E5-A827-501907751723}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

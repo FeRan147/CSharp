@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MQTTBroker.Logger
+namespace MqttBroker.Logger
 {
-    public static class MQTTConsoleLogger
+    public static class MqttConsoleLogger
     {
         private static readonly object Lock = new object();
 

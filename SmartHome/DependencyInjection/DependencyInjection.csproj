@@ -21,7 +21,7 @@
     <ProjectReference Include="..\InfrastructureInterfaces\InfrastructureInterfaces.csproj" />
     <ProjectReference Include="..\InfrastructureServices\InfrastructureServices.csproj" />
     <ProjectReference Include="..\MicroServices\MicroServices.csproj" />
-    <ProjectReference Include="..\MQTTBroker\MQTTBroker.csproj" />
+    <ProjectReference Include="..\MQTTBroker\MqttBroker.csproj" />
   </ItemGroup>
 
 </Project>
