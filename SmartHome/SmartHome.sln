@@ -27,6 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServices", "MicroServi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MqttBroker", "MQTTBroker\MqttBroker.csproj", "{74B87F41-AF22-44E5-A827-501907751723}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Firmware", "Firmware", "{4BB7ABAF-D299-4B16-8654-FF6919E48861}"
+	ProjectSection(SolutionItems) = preProject
+		FirmwareESP8266.ino = FirmwareESP8266.ino
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
