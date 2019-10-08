@@ -17,6 +17,8 @@ static const char* ssid = "SHATE";
 static const char* username = "gvozdik";
 // Password for authentication
 static const char* password = "ZXC123qwe";
+static const char* mqttserverip = "192.168.100.133";
+static const int mqttserverport = 1883;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -42,7 +44,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
-  
+
   String MQTT_DATA = "";
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
@@ -65,32 +67,32 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void setup()
 {
   pinMode(2, OUTPUT);
-  
+
   Serial.begin(9600);
   WiFi.disconnect();
   delay(3000);
   Serial.println("START");
-  // WPA2 Connection starts here
-  // Setting ESP into STATION mode only (no AP mode or dual mode)
-  wifi_set_opmode(STATION_MODE);
-  struct station_config wifi_config;
-  memset(&wifi_config, 0, sizeof(wifi_config));
-  strcpy((char*)wifi_config.ssid, ssid);
-  wifi_station_set_config(&wifi_config);
-  wifi_station_clear_cert_key();
-  wifi_station_clear_enterprise_ca_cert();
-  wifi_station_set_wpa2_enterprise_auth(1);
-  wifi_station_set_enterprise_identity((uint8*)username, strlen(username));
-  wifi_station_set_enterprise_username((uint8*)username, strlen(username));
-  wifi_station_set_enterprise_password((uint8*)password, strlen(password));
-  wifi_station_connect();
-  // WPA2 Connection ends here
-  // Normal Connection starts here
   /*
-     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
-    // Normal Connection ends here
+    // WPA2 Connection starts here
+    // Setting ESP into STATION mode only (no AP mode or dual mode)
+    wifi_set_opmode(STATION_MODE);
+    struct station_config wifi_config;
+    memset(&wifi_config, 0, sizeof(wifi_config));
+    strcpy((char*)wifi_config.ssid, ssid);
+    wifi_station_set_config(&wifi_config);
+    wifi_station_clear_cert_key();
+    wifi_station_clear_enterprise_ca_cert();
+    wifi_station_set_wpa2_enterprise_auth(1);
+    wifi_station_set_enterprise_identity((uint8*)username, strlen(username));
+    wifi_station_set_enterprise_username((uint8*)username, strlen(username));
+    wifi_station_set_enterprise_password((uint8*)password, strlen(password));
+    wifi_station_connect();
+    // WPA2 Connection ends here
   */
+  // Normal Connection starts here
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  // Normal Connection ends here
   while ((!(WiFi.status() == WL_CONNECTED))) {
     delay(300);
     Serial.print("..");
@@ -98,7 +100,7 @@ void setup()
   Serial.println("Connected");
   Serial.println("Your IP is");
   Serial.println((WiFi.localIP().toString()));
-  client.setServer("10.1.105.10", 1883);
+  client.setServer(mqttserverip, mqttserverport);
   client.setCallback(callback);
 }
 

@@ -25,14 +25,14 @@ namespace MqttBroker.Configuration
 
             var mqttServerOptions = new MqttServerOptionsBuilder()
                 .WithDefaultEndpointBoundIPAddress(IPAddress.Parse(configuration.GetSection("MQTT").GetSection("IP").Value))
+                .WithDefaultEndpointBoundIPV6Address(IPAddress.None)
                 .WithDefaultEndpointPort(int.Parse(configuration.GetSection("MQTT").GetSection("Port").Value))
                 .Build();
 
             services
                 .AddHostedMqttServer(mqttServerOptions)
-                .AddMqttTcpServerAdapter()
                 .AddMqttConnectionHandler()
-                .AddConnections();
+                .AddMqttTcpServerAdapter();
         }
     }
 }

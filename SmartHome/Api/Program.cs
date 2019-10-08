@@ -44,11 +44,7 @@ namespace Api
                                 .Build();
 
             return WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(o =>
-                {
-                    o.ListenAnyIP(int.Parse(configuration.GetSection("MQTT").GetSection("Port").Value), l => l.UseMqtt());
-                    o.ListenAnyIP(int.Parse(configuration.GetSection("Application").GetSection("Port").Value)); // default http pipeline
-                })
+                .UseKestrel()
                 .UseStartup<Startup>();
         }
     }
