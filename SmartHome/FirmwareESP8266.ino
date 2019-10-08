@@ -8,7 +8,6 @@
 #include <PubSubClient.h>
 
 extern "C" {
-#include "user_interface.h"
 #include "wpa2_enterprise.h"
 }
 
@@ -19,7 +18,6 @@ static const char* username = "gvozdik";
 // Password for authentication
 static const char* password = "ZXC123qwe";
 
-int  i;
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -41,16 +39,33 @@ void reconnectmqttserver() {
 
 char msgmqtt[50];
 void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message arrived on topic: ");
+  Serial.print(topic);
+  Serial.print(". Message: ");
+  
   String MQTT_DATA = "";
   for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
     MQTT_DATA += (char)payload[i];
   }
 
+  if (String(topic) == "test/output") {
+    Serial.print("Changing output to ");
+    if (MQTT_DATA == "on") {
+      Serial.println("on");
+      digitalWrite(2, HIGH);
+    }
+    else if (MQTT_DATA == "off") {
+      Serial.println("off");
+      digitalWrite(2, LOW);
+    }
+  }
 }
 
 void setup()
 {
-  i = 0;
+  pinMode(2, OUTPUT);
+  
   Serial.begin(9600);
   WiFi.disconnect();
   delay(3000);
@@ -79,14 +94,12 @@ void setup()
   while ((!(WiFi.status() == WL_CONNECTED))) {
     delay(300);
     Serial.print("..");
-
   }
   Serial.println("Connected");
   Serial.println("Your IP is");
   Serial.println((WiFi.localIP().toString()));
   client.setServer("10.1.105.10", 1883);
   client.setCallback(callback);
-
 }
 
 
@@ -94,11 +107,9 @@ void loop()
 {
   if (!client.connected()) {
     reconnectmqttserver();
-  } else {
-    client.loop();
-    snprintf (msgmqtt, 50, "%d ", i);
-    client.publish("test", msgmqtt);
-    i = i + 1;
-    delay(5000);
   }
+  client.loop();
+  snprintf (msgmqtt, 50, "%d ", digitalRead(2));
+  client.publish("test", msgmqtt);
+  delay(5000);
 }
