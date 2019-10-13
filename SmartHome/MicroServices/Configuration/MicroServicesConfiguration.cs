@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MicroServices.Messages.Devices;
+using MicroServices.Messages.Mqtt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -36,6 +37,12 @@ namespace MicroServices.Configuration
                 destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             routerConfig.RouteToEndpoint(
                 assembly: typeof(RemoveDevice).Assembly,
+                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+            routerConfig.RouteToEndpoint(
+                assembly: typeof(MqttMessage).Assembly,
+                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+            routerConfig.RouteToEndpoint(
+                assembly: typeof(MqttServerMessage).Assembly,
                 destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
 
             var discriminator = configuration.GetSection("MicroServices").GetSection("Discriminator").Value;

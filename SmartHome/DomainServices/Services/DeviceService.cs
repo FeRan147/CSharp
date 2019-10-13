@@ -49,6 +49,16 @@ namespace DomainServices.Services
             }
         }
 
+        public async Task<Device> GetByNameAsync(string name)
+        {
+            using (var context = _contextFactory.GetDefaultContext())
+            {
+                var device = await context.Devices.FirstOrDefaultAsync(_ => _.Name == name);
+
+                return _mapper.Map<Device>(device);
+            }
+        }
+
         public async Task DeleteAsync(int id)
         {
             using (var context = _contextFactory.GetDefaultContext())

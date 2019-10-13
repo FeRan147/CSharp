@@ -12,11 +12,11 @@ extern "C" {
 }
 
 // SSID to connect to
-static const char* ssid = "SHATE";
+static const char* ssid = "FeRan_Wi-Fi";
 // Username for authentification
 static const char* username = "gvozdik";
 // Password for authentication
-static const char* password = "ZXC123qwe";
+static const char* password = "FeRan25071990";
 static const char* mqttserverip = "192.168.100.133";
 static const int mqttserverport = 1883;
 
@@ -30,6 +30,10 @@ void reconnectmqttserver() {
     clientId += String(random(0xffff), HEX);
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
+      // Once connected, publish an announcement...
+      client.publish("outTopic", "hello world");
+      // ... and resubscribe
+      client.subscribe("test/output");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());

@@ -39,10 +39,6 @@ namespace Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                                .AddJsonFile("appsettings.json", optional: false)
-                                .Build();
-
             return WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
                 .UseStartup<Startup>();

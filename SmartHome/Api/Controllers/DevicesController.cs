@@ -12,6 +12,10 @@ using D = DomainInterfaces.Models;
 using NServiceBus;
 using System.Net;
 using MicroServices.Messages.Devices;
+using MicroServices.Messages.Mqtt;
+using Microsoft.Extensions.Configuration;
+using MQTTnet;
+using System.Text;
 
 namespace Api.Controllers
 {
@@ -23,12 +27,14 @@ namespace Api.Controllers
         private readonly IMapper _mapper;
         private readonly IDeviceService _deviceService;
         private readonly IEndpointInstance _endpoint;
+        private readonly IConfiguration _configuration;
 
-        public DevicesController(IMapper mapper, IDeviceService deviceService, IEndpointInstance endpoint)
+        public DevicesController(IMapper mapper, IDeviceService deviceService, IEndpointInstance endpoint, IConfiguration configuration)
         {
             _mapper = mapper;
             _deviceService = deviceService;
             _endpoint = endpoint;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -92,6 +98,42 @@ namespace Api.Controllers
             var message = new RemoveDevice()
             {
                 Id = id
+            };
+
+            var response = await _endpoint.Request<HttpStatusCode>(message)
+                .ConfigureAwait(false);
+        }
+
+        [HttpPost]
+        [Route("api/[controller]/[action]")]
+        public async Task SetLightOnAsync()
+        {
+            var message = new MqttServerMessage()
+            {
+                ClientId = _configuration.GetSection("MQTT").GetSection("ServerClientId").Value,
+                Message = new MqttApplicationMessage()
+                {
+                    Topic = "test/output",
+                    Payload = Encoding.UTF8.GetBytes("on")
+                }
+            };
+
+            var response = await _endpoint.Request<HttpStatusCode>(message)
+                .ConfigureAwait(false);
+        }
+
+        [HttpPost]
+        [Route("api/[controller]/[action]")]
+        public async Task SetLightOffAsync()
+        {
+            var message = new MqttServerMessage()
+            {
+                ClientId = _configuration.GetSection("MQTT").GetSection("ServerClientId").Value,
+                Message = new MqttApplicationMessage()
+                {
+                    Topic = "test/output",
+                    Payload = Encoding.UTF8.GetBytes("off")
+                }
             };
 
             var response = await _endpoint.Request<HttpStatusCode>(message)

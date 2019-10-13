@@ -5,17 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Messages\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MQTTnet" Version="3.0.8" />
     <PackageReference Include="MQTTnet.AspNetCore" Version="3.0.8" />
     <PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="3.0.8" />
+    <PackageReference Include="NServiceBus" Version="7.1.10" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DomainInterfaces\DomainInterfaces.csproj" />
+    <ProjectReference Include="..\MicroServices\MicroServices.csproj" />
   </ItemGroup>
 
 </Project>

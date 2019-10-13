@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using MqttBroker.Logger;
 using DomainInterfaces.Models;
 using MqttBroker.Storage;
+using MQTTnet.Client.Receiving;
+using MqttBroker.Handlers;
 
 namespace MqttBroker.Configuration
 {
@@ -32,8 +34,9 @@ namespace MqttBroker.Configuration
             services
                 .AddHostedMqttServer(mqttServerOptions)
                 .AddMqttTcpServerAdapter()
-                .AddMqttConnectionHandler()
-                .AddConnections();
+                .AddMqttConnectionHandler();
+
+            services.AddScoped<IMqttApplicationMessageReceivedHandler, ApplicationMessageReceivedHandler>();
         }
     }
 }
