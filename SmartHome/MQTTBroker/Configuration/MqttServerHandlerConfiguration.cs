@@ -13,7 +13,7 @@ namespace MqttBroker.Configuration
         {
             app.UseMqttServer(server =>
             {
-                server.ApplicationMessageReceivedHandler = new MessageHandler();
+                server.ApplicationMessageReceivedHandler = new MessageHandler(server);
             });
         }
     }

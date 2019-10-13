@@ -31,8 +31,9 @@ namespace MqttBroker.Configuration
 
             services
                 .AddHostedMqttServer(mqttServerOptions)
+                .AddMqttTcpServerAdapter()
                 .AddMqttConnectionHandler()
-                .AddMqttTcpServerAdapter();
+                .AddConnections();
         }
     }
 }
