@@ -7,7 +7,7 @@ namespace InfrastructureInterfaces.Interfaces
     public interface IDefaultContext : IDbContext
     {
         DbSet<Device> Devices { get; set; }
-        DbSet<ApplicationUser> Users { get; set; }
-        DbSet<ApplicationRole> Roles { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<Role> Roles { get; set; }
     }
 }

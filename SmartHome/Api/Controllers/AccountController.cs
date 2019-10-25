@@ -53,7 +53,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<object> Register(UserViewModel userVM)
         {
-            var user = _mapper.Map<AIM.ApplicationUser>(userVM);
+            var user = _mapper.Map<AIM.User>(userVM);
 
             var result = await _userManager.CreateAsync(user, userVM.Password);
 
@@ -66,7 +66,7 @@ namespace Api.Controllers
             return result.Errors;
         }
 
-        private object GenerateJwtToken(AIM.ApplicationUser user)
+        private object GenerateJwtToken(AIM.User user)
         {
             var claims = new List<Claim>
             {

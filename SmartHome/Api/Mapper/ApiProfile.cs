@@ -12,8 +12,8 @@ namespace Api.Mapper
             CreateMap<DeviceViewModel, D.Device>().ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
             CreateMap<UserViewModel, D.User>().ReverseMap();
             CreateMap<RoleViewModel, D.Role>().ReverseMap();
-            CreateMap<UserViewModel, AIM.ApplicationUser>().ReverseMap();
-            CreateMap<RoleViewModel, AIM.ApplicationRole>().ReverseMap();
+            CreateMap<UserViewModel, AIM.User>().ReverseMap();
+            CreateMap<RoleViewModel, AIM.Role>().ReverseMap();
         }
     }
 }

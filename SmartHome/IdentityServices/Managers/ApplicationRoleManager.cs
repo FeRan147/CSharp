@@ -12,9 +12,9 @@ using IdentityInterfaces.Interfaces;
 
 namespace IdentityServices.Managers
 {
-    public class ApplicationRoleManager : RoleManager<ApplicationRole>, IApplicationRoleManager
+    public class ApplicationRoleManager : RoleManager<Role>, IApplicationRoleManager
     {
-        public ApplicationRoleManager(IRoleStore<ApplicationRole> store, IEnumerable<IRoleValidator<ApplicationRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<ApplicationRole>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
+        public ApplicationRoleManager(IRoleStore<Role> store, IEnumerable<IRoleValidator<Role>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<Role>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
         {
         }
     }

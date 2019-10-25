@@ -64,7 +64,6 @@ namespace Api
 
             app.UseMqttServer(server =>
             {
-                server.SubscribeAsync()
                 server.ApplicationMessageReceivedHandler = handler;
             });
 

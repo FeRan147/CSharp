@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IdentityInterfaces.Models
 {
-    public class ApplicationRole : IdentityRole<string>
+    public class User : IdentityUser<string>
     {
     }
 }

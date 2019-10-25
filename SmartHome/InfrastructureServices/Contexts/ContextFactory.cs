@@ -8,12 +8,10 @@ namespace InfrastructureServices.Contexts
     public class ContextFactory : IContextFactory
     {
         private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ContextFactory(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public ContextFactory(IConfiguration configuration)
         {
             _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public IDefaultContext GetDefaultContext()
@@ -22,7 +20,7 @@ namespace InfrastructureServices.Contexts
             var dbOptionsBuilder = new DbContextOptionsBuilder();
             dbOptionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnectionString"));
 
-            return new DefaultContext(dbOptionsBuilder.Options, _httpContextAccessor, _configuration);
+            return new DefaultContext(dbOptionsBuilder.Options, _configuration);
         }
 
         public void Dispose()

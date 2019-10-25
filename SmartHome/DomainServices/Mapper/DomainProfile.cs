@@ -13,8 +13,8 @@ namespace DomainServices.Mapper
         public DomainProfile()
         {
             CreateMap<D.Device, I.Device>().ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
-            CreateMap<D.User, ApplicationUser>().ReverseMap();
-            CreateMap<D.Role, ApplicationRole>().ReverseMap();
+            CreateMap<D.User, User>().ReverseMap();
+            CreateMap<D.Role, Role>().ReverseMap();
         }
     }
 }

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServices.Stores
 {
-    public class ApplicationUserStore : UserStore<ApplicationUser, ApplicationRole, DefaultContext>, IApplicationUserStore
+    public class ApplicationUserStore : UserStore<User, Role, DefaultContext>, IApplicationUserStore
     {
         public ApplicationUserStore(DefaultContext context, IdentityErrorDescriber describer = null) : base(context, describer)
         {

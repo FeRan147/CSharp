@@ -10,44 +10,42 @@ using Microsoft.Extensions.Configuration;
 
 namespace InfrastructureServices.Contexts
 {
-    public class DefaultContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IDefaultContext
+    public class DefaultContext : IdentityDbContext<User, Role, string>, IDefaultContext
     {
         private readonly IConfiguration _configuration;
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DefaultContext(DbContextOptions dbContextOptions, IHttpContextAccessor httpContextAccessor, IConfiguration configuration) : base(dbContextOptions)
+        public DefaultContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
             _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(DeviceMap.Instance);
 
-            builder.Entity<ApplicationUser>().HasData(
-                new List<ApplicationUser>()
+            builder.Entity<User>().HasData(
+                new List<User>()
                 {
-                    new ApplicationUser
+                    new User
                     {
                         Id = "1", UserName = "Паша"
                     },
-                    new ApplicationUser
+                    new User
                     {
                         Id = "2", UserName = "Женя"
                     }
                 }
             );
 
-            builder.Entity<ApplicationRole>().HasData(
-                new List<ApplicationRole>()
+            builder.Entity<Role>().HasData(
+                new List<Role>()
                 {
-                    new ApplicationRole
+                    new Role
                     {
                         Id = "1", Name = "Read/Write/Delete"
                     },
-                    new ApplicationRole
+                    new Role
                     {
                         Id = "2", Name = "only Read"
                     }

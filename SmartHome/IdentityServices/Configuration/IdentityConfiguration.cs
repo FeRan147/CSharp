@@ -17,7 +17,7 @@ namespace IdentityServices.Configuration
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DefaultContext>()
                 .AddRoleStore<ApplicationRoleStore>()
                 .AddUserStore<ApplicationUserStore>()
