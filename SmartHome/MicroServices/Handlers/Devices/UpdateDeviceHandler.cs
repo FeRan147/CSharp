@@ -29,7 +29,7 @@ namespace MicroServices.Handlers.Devices
 
         public Task Handle(UpdateDevice message, IMessageHandlerContext context)
         {
-            _deviceService.SaveAsync(message.Id, message.Device).GetAwaiter().GetResult();
+            Task.Run(async () => await _deviceService.SaveAsync(message.Id, message.Device));
 
             Log.Info("UpdateDevice executed");
 

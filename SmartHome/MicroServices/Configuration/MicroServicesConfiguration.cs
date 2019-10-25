@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using MicroServices.Messages.Devices;
 using MicroServices.Messages.Mqtt;
 using Microsoft.Extensions.Configuration;
@@ -60,9 +61,9 @@ namespace MicroServices.Configuration
                     });
                 });
 
-            endpointInstance = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            endpointInstance = Task.Run(async () => await Endpoint.Start(endpointConfiguration)).Result;
 
-            services.AddScoped(typeof(IEndpointInstance), x => endpointInstance);
+            services.AddSingleton(typeof(IEndpointInstance), x => endpointInstance);
         }
     }
 }

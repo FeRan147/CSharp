@@ -30,7 +30,7 @@ namespace MicroServices.Handlers.Devices
         public Task Handle(RemoveDevice message, IMessageHandlerContext context)
         {
 
-            _deviceService.DeleteAsync(message.Id).GetAwaiter().GetResult();
+            Task.Run(async () => await _deviceService.DeleteAsync(message.Id));
 
             Log.Info("RemoveDevice executed");
 

@@ -26,7 +26,7 @@ namespace MicroServices.Handlers.Devices.Mqtt
 
         public Task Handle(MqttMessage message, IMessageHandlerContext context)
         {
-            var device = _deviceService.GetByNameAsync(message.ClientId).GetAwaiter().GetResult();
+            var device = Task.Run(async () => await _deviceService.GetByNameAsync(message.ClientId)).Result;
             if (device == null)
             {
                 var addDevice = new Device()

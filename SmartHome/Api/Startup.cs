@@ -46,7 +46,7 @@ namespace Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMqttApplicationMessageReceivedHandler handler, IEndpointInstance endpoint)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMqttApplicationMessageReceivedHandler handler)
         {
             if (env.IsDevelopment())
             {
@@ -62,8 +62,11 @@ namespace Api
 
             app.UseMvc();
 
-            RegisterMqttServerHandler.Register(app, endpoint, handler);
-            RegisterAppBuilder.Register(app);
+            app.UseMqttServer(server =>
+            {
+                server.SubscribeAsync()
+                server.ApplicationMessageReceivedHandler = handler;
+            });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();

@@ -2,32 +2,49 @@
 using MicroServices.Configuration;
 using MicroServices.Messages.Mqtt;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using MQTTnet;
 using MQTTnet.AspNetCore;
+using MQTTnet.Client;
+using MQTTnet.Client.Options;
+using MQTTnet.Extensions.Rpc;
+using MQTTnet.Extensions.Rpc.Options;
+using MQTTnet.Protocol;
 using MQTTnet.Server;
 using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MicroServices.Handlers.Mqtt
 {
     public class MqttServerMessageHandler : IHandleMessages<MqttServerMessage>
     {
-        public Task Handle(MqttServerMessage message, IMessageHandlerContext context)
-        {
-            var app = AppConfiguration.GetApp();
+        private readonly IConfiguration _configuration;
 
-            if (app != null)
+        public MqttServerMessageHandler(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task Handle(MqttServerMessage message, IMessageHandlerContext context)
+        {
+            using (var mqttClient = new MqttFactory().CreateMqttClient())
             {
-                app.UseMqttServer(server =>
-                {
-                    server.PublishAsync(message.Message);
-                });
+                var options = new MqttClientOptionsBuilder()
+                                    .WithClientId(message.ClientId)
+                                    .WithTcpServer(_configuration.GetSection("MQTT").GetSection("IP").Value, int.Parse(_configuration.GetSection("MQTT").GetSection("Port").Value))
+                                    .Build();
+
+                await mqttClient.ConnectAsync(options);
+                await mqttClient.PublishAsync(message.Message.Topic, Encoding.UTF8.GetString(message.Message.Payload), MqttQualityOfServiceLevel.AtMostOnce);
+                await mqttClient.DisconnectAsync();
             }
 
-            return context.Reply(HttpStatusCode.OK);
+            await context.Reply(HttpStatusCode.OK);
         }
     }
 }

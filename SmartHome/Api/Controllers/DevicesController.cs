@@ -110,7 +110,7 @@ namespace Api.Controllers
         {
             var message = new MqttServerMessage()
             {
-                ClientId = _configuration.GetSection("MQTT").GetSection("ServerClientId").Value,
+                ClientId = Guid.NewGuid().ToString(),
                 Message = new MqttApplicationMessage()
                 {
                     Topic = "test/output",
@@ -128,7 +128,7 @@ namespace Api.Controllers
         {
             var message = new MqttServerMessage()
             {
-                ClientId = _configuration.GetSection("MQTT").GetSection("ServerClientId").Value,
+                ClientId = Guid.NewGuid().ToString(),
                 Message = new MqttApplicationMessage()
                 {
                     Topic = "test/output",

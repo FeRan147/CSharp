@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using MqttBroker.Storage;
 using MQTTnet;
 using MQTTnet.Client.Receiving;
+using MQTTnet.Protocol;
 using MQTTnet.Server;
 using NServiceBus;
 using System;
@@ -25,18 +26,15 @@ namespace MqttBroker.Handlers
 
         public async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs eventArgs)
         {
-            if (eventArgs.ClientId != _configuration.GetSection("MQTT").GetSection("ServerClientId").Value)
+            var message = new MqttMessage()
             {
-                var message = new MqttMessage()
-                {
-                    ClientId = eventArgs.ClientId,
-                    Message = eventArgs.ApplicationMessage
-                };
+                ClientId = eventArgs.ClientId,
+                Message = eventArgs.ApplicationMessage
+            };
 
-                var response = await _endpoint.Request<Task>(message).ConfigureAwait(false);
+            //await _endpoint.Request<Task>(message).ConfigureAwait(false);
 
-                await JsonMessagesStorage.SaveRetainedMessageAsync(eventArgs.ApplicationMessage);
-            }
+            await JsonMessagesStorage.SaveRetainedMessageAsync(eventArgs.ApplicationMessage);
         }
     }
 }

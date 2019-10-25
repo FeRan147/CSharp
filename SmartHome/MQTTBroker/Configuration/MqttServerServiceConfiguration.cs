@@ -36,7 +36,7 @@ namespace MqttBroker.Configuration
                 .AddMqttTcpServerAdapter()
                 .AddMqttConnectionHandler();
 
-            services.AddScoped<IMqttApplicationMessageReceivedHandler, ApplicationMessageReceivedHandler>();
+            services.AddSingleton<IMqttApplicationMessageReceivedHandler, ApplicationMessageReceivedHandler>();
         }
     }
 }
