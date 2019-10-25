@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MQTTnet.AspNetCore;
 
@@ -17,31 +18,14 @@ namespace Api
     {
         public static void Main(string[] args)
         {
-            AsyncMain(args).GetAwaiter().GetResult();
+            CreateHostBuilder(args).Build().Run();
         }
 
-        static async Task AsyncMain(string[] args)
-        {
-            var host = CreateWebHostBuilder(args).Build();
-
-            await host.StartAsync().ConfigureAwait(false);
-
-            var serverAddresses = host.ServerFeatures.Get<IServerAddressesFeature>();
-            var address = serverAddresses.Addresses.First();
-
-            Console.WriteLine($"Now listening on: {address}");
-            Console.WriteLine("Press any key to shutdown");
-
-            Console.ReadKey();
-            await host.StopAsync()
-                .ConfigureAwait(false);
-        }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-        {
-            return WebHost.CreateDefaultBuilder(args)
-                .UseKestrel()
-                .UseStartup<Startup>();
-        }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

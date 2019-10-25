@@ -55,6 +55,8 @@ namespace Api.Controllers
         {
             var user = _mapper.Map<AIM.User>(userVM);
 
+            user.Id = Guid.NewGuid().ToString();
+
             var result = await _userManager.CreateAsync(user, userVM.Password);
 
             if (result.Succeeded)

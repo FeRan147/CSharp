@@ -84,7 +84,6 @@ namespace IdentityInterfaces.Interfaces
         Task<bool> IsInRoleAsync(User user, string role);
         Task<bool> IsLockedOutAsync(User user);
         Task<bool> IsPhoneNumberConfirmedAsync(User user);
-        string NormalizeKey(string key);
         Task<IdentityResult> RedeemTwoFactorRecoveryCodeAsync(User user, string code);
         void RegisterTokenProvider(string providerName, IUserTwoFactorTokenProvider<User> provider);
         Task<IdentityResult> RemoveAuthenticationTokenAsync(User user, string loginProvider, string tokenName);
