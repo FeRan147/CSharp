@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainServices", "DomainSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfrastructureServices", "InfrastructureServices\InfrastructureServices.csproj", "{EB197428-7A69-4A2D-A60C-C00E759C5312}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "UI", "UI\UI.njsproj", "{90323CCB-8D14-46A5-9EC4-BBA099CFF4A5}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "UI", "UI\UI.njsproj", "{81935E09-ADFA-416D-BDCB-6A0C72C77A13}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServices", "IdentityServices\IdentityServices.csproj", "{262E739E-1FA4-4567-9F8A-C92A574725B5}"
 EndProject
@@ -25,12 +25,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityInterfaces", "Ident
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServices", "MicroServices\MicroServices.csproj", "{1E702D7A-3039-4435-98A5-2AB2F84E0349}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MqttBroker", "MQTTBroker\MqttBroker.csproj", "{74B87F41-AF22-44E5-A827-501907751723}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Firmware", "Firmware", "{4BB7ABAF-D299-4B16-8654-FF6919E48861}"
 	ProjectSection(SolutionItems) = preProject
 		FirmwareESP8266.ino = FirmwareESP8266.ino
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttServerBroker", "MqttServerBroker\MqttServerBroker.csproj", "{3A977107-1191-41E0-9BD3-774887BD456A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttClientEnactor", "MqttClientEnactor\MqttClientEnactor.csproj", "{08619E03-873D-4006-A17D-A691258A55CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,10 +64,10 @@ Global
 		{EB197428-7A69-4A2D-A60C-C00E759C5312}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB197428-7A69-4A2D-A60C-C00E759C5312}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB197428-7A69-4A2D-A60C-C00E759C5312}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90323CCB-8D14-46A5-9EC4-BBA099CFF4A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90323CCB-8D14-46A5-9EC4-BBA099CFF4A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90323CCB-8D14-46A5-9EC4-BBA099CFF4A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90323CCB-8D14-46A5-9EC4-BBA099CFF4A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{262E739E-1FA4-4567-9F8A-C92A574725B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{262E739E-1FA4-4567-9F8A-C92A574725B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{262E739E-1FA4-4567-9F8A-C92A574725B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,17 +80,21 @@ Global
 		{1E702D7A-3039-4435-98A5-2AB2F84E0349}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E702D7A-3039-4435-98A5-2AB2F84E0349}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E702D7A-3039-4435-98A5-2AB2F84E0349}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74B87F41-AF22-44E5-A827-501907751723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74B87F41-AF22-44E5-A827-501907751723}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74B87F41-AF22-44E5-A827-501907751723}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74B87F41-AF22-44E5-A827-501907751723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A977107-1191-41E0-9BD3-774887BD456A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A977107-1191-41E0-9BD3-774887BD456A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A977107-1191-41E0-9BD3-774887BD456A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A977107-1191-41E0-9BD3-774887BD456A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08619E03-873D-4006-A17D-A691258A55CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08619E03-873D-4006-A17D-A691258A55CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08619E03-873D-4006-A17D-A691258A55CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08619E03-873D-4006-A17D-A691258A55CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3FEC4BFE-055B-46E0-A144-0F18D273F316} = {45B82F00-DC91-4A2D-B7B5-7940CBEEFD2D}
-		{90323CCB-8D14-46A5-9EC4-BBA099CFF4A5} = {45B82F00-DC91-4A2D-B7B5-7940CBEEFD2D}
+		{81935E09-ADFA-416D-BDCB-6A0C72C77A13} = {45B82F00-DC91-4A2D-B7B5-7940CBEEFD2D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE1E4051-C979-46B9-A281-51757B96A163}

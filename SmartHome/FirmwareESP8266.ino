@@ -18,7 +18,7 @@ static const char* username = "gvozdik";
 // Password for authentication
 static const char* password = "FeRan25071990";
 static const char* mqttserverip = "192.168.100.133";
-static const int mqttserverport = 1883;
+static const int mqttserverport = 1884;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -59,11 +59,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print("Changing output to ");
     if (MQTT_DATA == "on") {
       Serial.println("on");
-      digitalWrite(2, HIGH);
+      digitalWrite(2, LOW);
     }
     else if (MQTT_DATA == "off") {
       Serial.println("off");
-      digitalWrite(2, LOW);
+      digitalWrite(2, HIGH);
     }
   }
 }
@@ -71,6 +71,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void setup()
 {
   pinMode(2, OUTPUT);
+  digitalWrite(2,HIGH);
 
   Serial.begin(9600);
   WiFi.disconnect();
@@ -115,7 +116,8 @@ void loop()
     reconnectmqttserver();
   }
   client.loop();
-  snprintf (msgmqtt, 50, "%d ", digitalRead(2));
+  Serial.println(digitalRead(2));
+  snprintf (msgmqtt, 50, "%d", digitalRead(2));
   client.publish("test", msgmqtt);
   delay(5000);
 }

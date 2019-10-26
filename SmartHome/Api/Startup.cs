@@ -14,8 +14,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
+using MqttClientEnactor.Interfaces;
 using MQTTnet.AspNetCore;
 using MQTTnet.Client.Receiving;
+using MqttServerBroker.Interfaces;
 using NServiceBus;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -46,7 +48,7 @@ namespace Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMqttApplicationMessageReceivedHandler handler)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMqttServerBroker mqttServer)
         {
             if (env.IsDevelopment())
             {
@@ -70,10 +72,7 @@ namespace Api
                 endpoints.MapControllers();
             });
 
-            app.UseMqttServer(server =>
-            {
-                server.ApplicationMessageReceivedHandler = handler;
-            });
+            mqttServer.RunAsync();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();

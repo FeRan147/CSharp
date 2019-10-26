@@ -1,20 +1,20 @@
-﻿using System;
+﻿using MicroServices.Messages.Devices;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MqttClientEnactor.Messages;
+using MqttServerBroker.Messages;
+using NServiceBus;
+using NServiceBus.ObjectBuilder.MSDependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using MicroServices.Messages.Devices;
-using MicroServices.Messages.Mqtt;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using NServiceBus;
-using NServiceBus.ObjectBuilder.MSDependencyInjection;
 
-namespace MicroServices.Configuration
+namespace DependencyInjection.Modules
 {
-    public static class MicroServicesConfiguration
+    public static class MicroServicesModule
     {
-        public static void Configure(IServiceCollection services, IConfiguration configuration)
+        public static void Register(IServiceCollection services, IConfiguration configuration)
         {
             IEndpointInstance endpointInstance = null;
             services.AddSingleton<IMessageSession>(_ => endpointInstance);
@@ -40,10 +40,10 @@ namespace MicroServices.Configuration
                 assembly: typeof(RemoveDevice).Assembly,
                 destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             routerConfig.RouteToEndpoint(
-                assembly: typeof(MqttMessage).Assembly,
+                assembly: typeof(MqttReceivedMessage).Assembly,
                 destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             routerConfig.RouteToEndpoint(
-                assembly: typeof(MqttServerMessage).Assembly,
+                assembly: typeof(MqttResponseMessage).Assembly,
                 destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
 
             var discriminator = configuration.GetSection("MicroServices").GetSection("Discriminator").Value;

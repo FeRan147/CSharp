@@ -2,9 +2,9 @@
 using DomainInterfaces.Models;
 using InfrastructureInterfaces.Interfaces;
 using MicroServices.Messages.Devices;
-using MicroServices.Messages.Mqtt;
 using Microsoft.Extensions.Configuration;
 using MQTTnet;
+using MqttServerBroker.Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 using System;
@@ -13,18 +13,18 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MicroServices.Handlers.Devices.Mqtt
+namespace MqttServerBroker.Handlers
 {
-    public class MqttMessageHandler : IHandleMessages<MqttMessage>
+    public class MqttReceivedMessageHandler : IHandleMessages<MqttReceivedMessage>
     {
         private readonly IDeviceService _deviceService;
  
-        public MqttMessageHandler(IDeviceService deviceService)
+        public MqttReceivedMessageHandler(IDeviceService deviceService)
         {
             _deviceService = deviceService;
         }
 
-        public Task Handle(MqttMessage message, IMessageHandlerContext context)
+        public Task Handle(MqttReceivedMessage message, IMessageHandlerContext context)
         {
             var device = Task.Run(async () => await _deviceService.GetByNameAsync(message.ClientId)).Result;
             if (device == null)

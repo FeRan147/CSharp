@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MicroServices.Messages.Mqtt
+namespace MqttClientEnactor.Messages
 {
-    public class MqttMessage : IMessage
+    public class MqttResponseMessage : IMessage
     {
         public string ClientId { get; set; }
         public MqttApplicationMessage Message { get; set; }

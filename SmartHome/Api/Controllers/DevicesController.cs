@@ -12,10 +12,10 @@ using D = DomainInterfaces.Models;
 using NServiceBus;
 using System.Net;
 using MicroServices.Messages.Devices;
-using MicroServices.Messages.Mqtt;
 using Microsoft.Extensions.Configuration;
 using MQTTnet;
 using System.Text;
+using MqttClientEnactor.Messages;
 
 namespace Api.Controllers
 {
@@ -27,14 +27,12 @@ namespace Api.Controllers
         private readonly IMapper _mapper;
         private readonly IDeviceService _deviceService;
         private readonly IEndpointInstance _endpoint;
-        private readonly IConfiguration _configuration;
 
-        public DevicesController(IMapper mapper, IDeviceService deviceService, IEndpointInstance endpoint, IConfiguration configuration)
+        public DevicesController(IMapper mapper, IDeviceService deviceService, IEndpointInstance endpoint)
         {
             _mapper = mapper;
             _deviceService = deviceService;
             _endpoint = endpoint;
-            _configuration = configuration;
         }
 
         [HttpGet]
@@ -108,7 +106,7 @@ namespace Api.Controllers
         [Route("api/[controller]/[action]")]
         public async Task SetLightOnAsync()
         {
-            var message = new MqttServerMessage()
+            var message = new MqttResponseMessage()
             {
                 ClientId = Guid.NewGuid().ToString(),
                 Message = new MqttApplicationMessage()
@@ -126,7 +124,7 @@ namespace Api.Controllers
         [Route("api/[controller]/[action]")]
         public async Task SetLightOffAsync()
         {
-            var message = new MqttServerMessage()
+            var message = new MqttResponseMessage()
             {
                 ClientId = Guid.NewGuid().ToString(),
                 Message = new MqttApplicationMessage()

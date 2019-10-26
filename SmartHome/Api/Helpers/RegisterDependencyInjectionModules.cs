@@ -15,6 +15,8 @@ namespace Api.Helpers
         {
             InfrastructureModule.Register(services, configuration);
             DomainModule.Register(services, configuration);
+            MqttModule.Register(services, configuration);
+            MicroServicesModule.Register(services, configuration);
         }
     }
 }

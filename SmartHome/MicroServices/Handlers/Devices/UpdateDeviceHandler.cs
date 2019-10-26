@@ -15,15 +15,11 @@ namespace MicroServices.Handlers.Devices
     public class UpdateDeviceHandler :
         IHandleMessages<UpdateDevice>
     {
-        private readonly IMapper _mapper;
-        private readonly IContextFactory _contextFactory;
         private readonly IDeviceService _deviceService;
         private static readonly ILog Log = LogManager.GetLogger<IDeviceService>();
 
-        public UpdateDeviceHandler(IMapper mapper, IContextFactory contextFactory, IDeviceService deviceService)
+        public UpdateDeviceHandler(IDeviceService deviceService)
         {
-            _mapper = mapper;
-            _contextFactory = contextFactory;
             _deviceService = deviceService;
         }
 
