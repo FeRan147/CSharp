@@ -38,7 +38,7 @@ namespace MqttServerBroker.Handlers
                 _deviceService.SaveAsync(null, addDevice);
             }
 
-            return Task.CompletedTask;
+            return context.Reply(HttpStatusCode.OK);
         }
     }
 }

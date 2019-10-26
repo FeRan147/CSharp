@@ -112,7 +112,7 @@ namespace Api.Controllers
                 Message = new MqttApplicationMessage()
                 {
                     Topic = "test/output",
-                    Payload = Encoding.UTF8.GetBytes("on")
+                    Payload = Encoding.UTF8.GetBytes("on"),
                 }
             };
 
