@@ -12,12 +12,18 @@ extern "C" {
 }
 
 // SSID to connect to
-static const char* ssid = "FeRan_Wi-Fi";
+static const char* ssid = "SHATE";
+//static const char* ssid = "Redmi";
+//static const char* ssid = "FeRan_Wi-Fi";
 // Username for authentification
 static const char* username = "gvozdik";
 // Password for authentication
-static const char* password = "FeRan25071990";
-static const char* mqttserverip = "192.168.100.133";
+static const char* password = "ZXC123qwe";
+//static const char* password = "25071990";
+//static const char* password = "FeRan25071990";
+static const char* mqttserverip = "10.1.105.10";
+//static const char* mqttserverip = "192.168.43.122";
+//static const char* mqttserverip = "192.168.100.133";
 static const int mqttserverport = 1884;
 
 WiFiClient espClient;
@@ -77,7 +83,7 @@ void setup()
   WiFi.disconnect();
   delay(3000);
   Serial.println("START");
-  /*
+  
     // WPA2 Connection starts here
     // Setting ESP into STATION mode only (no AP mode or dual mode)
     wifi_set_opmode(STATION_MODE);
@@ -93,11 +99,11 @@ void setup()
     wifi_station_set_enterprise_password((uint8*)password, strlen(password));
     wifi_station_connect();
     // WPA2 Connection ends here
-  */
-  // Normal Connection starts here
+  
+  /*// Normal Connection starts here
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  // Normal Connection ends here
+  // Normal Connection ends here*/
   while ((!(WiFi.status() == WL_CONNECTED))) {
     delay(300);
     Serial.print("..");
@@ -117,7 +123,6 @@ void loop()
   }
   client.loop();
   Serial.println(digitalRead(2));
-  snprintf (msgmqtt, 50, "%d", digitalRead(2));
   client.publish("test", msgmqtt);
   delay(5000);
 }
