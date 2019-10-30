@@ -34,7 +34,6 @@
   <ItemGroup>
     <Content Include="angular.json" />
     <Content Include="karma.conf.js" />
-    <Content Include="package-lock.json" />
     <Content Include="protractor.conf.js" />
     <Content Include="src\app\%40core\data\.gitkeep" />
     <Content Include="src\app\%40core\data\README.md" />
