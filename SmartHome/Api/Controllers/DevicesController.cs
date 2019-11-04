@@ -103,7 +103,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        [Route("api/[controller]/[action]")]
+        [Route("[action]")]
         public async Task SetLightOnAsync()
         {
             var message = new MqttResponseMessage()
@@ -121,7 +121,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        [Route("api/[controller]/[action]")]
+        [Route("[action]")]
         public async Task SetLightOffAsync()
         {
             var message = new MqttResponseMessage()

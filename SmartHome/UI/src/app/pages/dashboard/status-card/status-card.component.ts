@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { Status, StatusCardData } from '../../../@core/data/status-card';
 
 @Component({
   selector: 'ngx-status-card',
   styleUrls: ['./status-card.component.scss'],
   template: `
-    <nb-card (click)="on = !on" [ngClass]="{'off': !on}">
+    <nb-card (click)="switch()" [ngClass]="{'off': !on}">
       <div class="icon-container">
         <div class="icon status-{{ type }}">
           <ng-content></ng-content>
@@ -22,5 +23,17 @@ export class StatusCardComponent {
 
   @Input() title: string;
   @Input() type: string;
-  @Input() on = true;
+    @Input() on = true;
+
+    constructor(private statusCardService: StatusCardData) { }
+
+    switch() {
+        this.on = !this.on;
+
+        if (this.on = true) {
+            this.statusCardService.switchOff();
+        } else {
+            this.statusCardService.switchOn();
+        }
+    }
 }
