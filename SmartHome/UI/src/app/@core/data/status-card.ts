@@ -6,6 +6,6 @@ export interface Status {
 
 export abstract class StatusCardData {
     abstract getStatus(): Observable<Status>;
-    abstract switchOn(): void;
-    abstract switchOff(): void;
+    abstract switchOn(): Observable<boolean>;
+    abstract switchOff(): Observable<boolean>;
 }

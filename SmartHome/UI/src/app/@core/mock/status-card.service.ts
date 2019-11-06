@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { of as observableOf, Observable } from 'rxjs';
+import { of as observableOf, Observable, of } from 'rxjs';
 import { StatusCardData, Status } from '../data/status-card';
 import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class StatusCardService extends StatusCardData {
@@ -18,11 +19,31 @@ export class StatusCardService extends StatusCardData {
         return observableOf(this.statusData);
     }
 
-    switchOn(): void {
-        this.http.post('http://localhost:5001/api/Devices/SetLightOn', null);
+    switchOn(): Observable<boolean> {
+        return this.http.post('http://localhost:5001/api/Devices/SetLightOn', {}).pipe(
+            map((resp: any) => {
+                return resp.IsSuccess;
+            }),
+            catchError(
+                (err => {
+                    console.log(err);
+                    return of(false);
+                }),
+            ),
+        );
     }
 
-    switchOff(): void {
-        this.http.post('http://localhost:5001/api/Devices/SetLightOff', null);
+    switchOff(): Observable<boolean> {
+        return this.http.post('http://localhost:5001/api/Devices/SetLightOff', {}).pipe(
+            map((resp: any) => {
+                return resp.IsSuccess;
+            }),
+            catchError(
+                (err => {
+                    console.log(err);
+                    return of(false);
+                }),
+            ),
+        );
     }
 }

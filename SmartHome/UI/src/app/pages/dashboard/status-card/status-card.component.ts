@@ -4,20 +4,7 @@ import { Status, StatusCardData } from '../../../@core/data/status-card';
 @Component({
   selector: 'ngx-status-card',
   styleUrls: ['./status-card.component.scss'],
-  template: `
-    <nb-card (click)="switch()" [ngClass]="{'off': !on}">
-      <div class="icon-container">
-        <div class="icon status-{{ type }}">
-          <ng-content></ng-content>
-        </div>
-      </div>
-
-      <div class="details">
-        <div class="title h5">{{ title }}</div>
-        <div class="status paragraph-2">{{ on ? 'ON' : 'OFF' }}</div>
-      </div>
-    </nb-card>
-  `,
+  templateUrl: './status-card.component.html',
 })
 export class StatusCardComponent {
 
@@ -29,11 +16,12 @@ export class StatusCardComponent {
 
     switch() {
         this.on = !this.on;
+        console.log(this.on);
 
-        if (this.on = true) {
-            this.statusCardService.switchOff();
+        if (this.on) {
+            this.statusCardService.switchOff().subscribe();
         } else {
-            this.statusCardService.switchOn();
+            this.statusCardService.switchOn().subscribe();
         }
     }
 }
