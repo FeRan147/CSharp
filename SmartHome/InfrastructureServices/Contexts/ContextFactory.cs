@@ -1,6 +1,7 @@
 ﻿using InfrastructureInterfaces.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace InfrastructureServices.Contexts
 {
@@ -20,6 +21,11 @@ namespace InfrastructureServices.Contexts
             dbOptionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnectionString"));
 
             return new DefaultContext(dbOptionsBuilder.Options, _configuration);
+        }
+
+        public IMongoContext GetMongoContext()
+        {
+            return new MongoContext(_configuration);
         }
 
         public void Dispose()

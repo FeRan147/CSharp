@@ -18,7 +18,7 @@ export class StatusCardComponent {
         this.on = !this.on;
         console.log(this.on);
 
-        if (this.on) {
+        if (!this.on) {
             this.statusCardService.switchOff().subscribe();
         } else {
             this.statusCardService.switchOn().subscribe();

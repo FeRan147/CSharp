@@ -129,6 +129,42 @@ namespace DomainServices.Services
             }
         }
 
+        /*public async Task<Device> GetDeviceMongo(Device device)
+        {
+            using (var context = _contextFactory.GetMongoContext())
+            {
+                var devicesQuery = context.Devices;
+
+                var devices = await context.Devices.FindAsync(device)
+                                    .ToListAsync()
+                                    .ConfigureAwait(false);
+
+                return devices.Select(item =>
+                {
+                    var entity = _mapper.Map<Device>(item);
+                    return entity;
+                }).ToList();
+            }
+        }
+
+        public async Task<Device> SetDeviceMongo(Device device)
+        {
+            using (var context = _contextFactory.GetMongoContext())
+            {
+                var devicesQuery = context.Devices;
+
+                var devices = await devicesQuery
+                                    .ToListAsync()
+                                    .ConfigureAwait(false);
+
+                return devices.Select(item =>
+                {
+                    var entity = _mapper.Map<Device>(item);
+                    return entity;
+                }).ToList();
+            }
+        }*/
+
         public void Dispose()
         {
         }

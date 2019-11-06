@@ -22,7 +22,7 @@ export class StatusCardService extends StatusCardData {
     switchOn(): Observable<boolean> {
         return this.http.post('http://localhost:5001/api/Devices/SetLightOn', {}).pipe(
             map((resp: any) => {
-                return resp.IsSuccess;
+                return true;
             }),
             catchError(
                 (err => {
@@ -36,7 +36,7 @@ export class StatusCardService extends StatusCardData {
     switchOff(): Observable<boolean> {
         return this.http.post('http://localhost:5001/api/Devices/SetLightOff', {}).pipe(
             map((resp: any) => {
-                return resp.IsSuccess;
+                return true;
             }),
             catchError(
                 (err => {
