@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InfrastructureServices.Migrations
@@ -48,25 +47,11 @@ namespace InfrastructureServices.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Devices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Availibility = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -87,7 +72,7 @@ namespace InfrastructureServices.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -167,13 +152,35 @@ namespace InfrastructureServices.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Devices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Availibility = table.Column<bool>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    UserId1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Devices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Devices_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "27797548-06d8-4c7a-b1e2-787c39c3ca51", "Read/Write/Delete", null },
-                    { "2", "d95f71c9-2b86-4ed2-b109-e482d71e2c72", "only Read", null }
+                    { "1", "64dcb2d5-6fa8-431d-b792-9b2509bc5ff5", "Read/Write/Delete", null },
+                    { "2", "e0c453ff-3b0c-44d7-9544-79f3e05caa0c", "only Read", null }
                 });
 
             migrationBuilder.InsertData(
@@ -181,25 +188,25 @@ namespace InfrastructureServices.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "db77a43e-a513-42c4-8219-9e16fee335a7", null, false, false, null, null, null, null, null, false, null, false, "Паша" },
-                    { "2", 0, "8efcfd62-af76-429f-a005-79188530efb6", null, false, false, null, null, null, null, null, false, null, false, "Женя" }
+                    { "1", 0, "f53ec0b3-fc45-475b-9f41-00b5b93fbf00", null, false, false, null, null, null, null, null, false, null, false, "Паша" },
+                    { "2", 0, "7de1437b-e67c-4c2e-8a97-5bf8f31b3915", null, false, false, null, null, null, null, null, false, null, false, "Женя" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Devices",
-                columns: new[] { "Id", "Availibility", "Name" },
+                columns: new[] { "Id", "Availibility", "Name", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { 1, false, "Телевизор" },
-                    { 2, false, "Холодильник" },
-                    { 3, true, "Телефон" },
-                    { 4, false, "Вентилятор" },
-                    { 5, true, "Кондиционер" },
-                    { 6, false, "Приставка" },
-                    { 7, false, "Мультиварка" },
-                    { 8, true, "Компьютер" },
-                    { 9, false, "Принтер" },
-                    { 10, true, "Сканер" }
+                    { 1, false, "Телевизор", 0, null },
+                    { 2, false, "Холодильник", 0, null },
+                    { 3, true, "Телефон", 0, null },
+                    { 4, false, "Вентилятор", 0, null },
+                    { 5, true, "Кондиционер", 0, null },
+                    { 6, false, "Приставка", 0, null },
+                    { 7, false, "Мультиварка", 0, null },
+                    { 8, true, "Компьютер", 0, null },
+                    { 9, false, "Принтер", 0, null },
+                    { 10, true, "Сканер", 0, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -246,6 +253,11 @@ namespace InfrastructureServices.Migrations
                 table: "Devices",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devices_UserId1",
+                table: "Devices",
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

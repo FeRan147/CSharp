@@ -12,84 +12,69 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AIM = IdentityInterfaces.Models;
 using IdentityInterfaces.Interfaces;
+using DomainInterfaces.Interfaces;
+using D = DomainInterfaces.Models;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
-        private readonly IApplicationSignInManager _signInManager;
-        private readonly IApplicationUserManager _userManager;
+        private readonly IAccountService _accountService;
 
         public AccountController(
-            IConfiguration configuration,
             IMapper mapper,
-            IApplicationUserManager userManager,
-            IApplicationSignInManager signInManager)
+            IAccountService accountService)
         {
-            _configuration = configuration;
             _mapper = mapper;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _accountService = accountService;
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<object> Login(UserViewModel userVM)
+        public async Task<UserViewModel> Login([FromBody] UserViewModel userVM)
         {
-            var result = await _signInManager.PasswordSignInAsync(userVM.UserName, userVM.Password, false, false);
+            var result = await _accountService.LoginAsync(_mapper.Map<D.User>(userVM));
 
-            if (result.Succeeded)
+            Type type = result.GetType();
+
+            if (type.Equals(typeof(string)))
             {
-                var user = _userManager.Users.SingleOrDefault(r => r.UserName == userVM.UserName);
-                return GenerateJwtToken(user);
+                userVM.Token = result.ToString();
+
+                return userVM;
             }
 
-            return result;
+            userVM.Error = result;
+
+            return userVM;
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<object> Register(UserViewModel userVM)
+        public async Task<UserViewModel> Register([FromBody] UserViewModel userVM)
         {
-            var user = _mapper.Map<AIM.User>(userVM);
+            var result = await _accountService.RegisterAsync(_mapper.Map<D.User>(userVM));
 
-            user.Id = Guid.NewGuid().ToString();
+            Type type = result.GetType();
 
-            var result = await _userManager.CreateAsync(user, userVM.Password);
-
-            if (result.Succeeded)
+            if (type.Equals(typeof(string)))
             {
-                await _signInManager.SignInAsync(user, false);
-                return GenerateJwtToken(user);
+                userVM.Token = result.ToString();
+
+                return userVM;
             }
 
-            return result.Errors;
+            userVM.Error = result;
+
+            return userVM;
         }
 
-        private object GenerateJwtToken(AIM.User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Identity")["JwtKey"]));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration.GetSection("Identity")["JwtExpireDays"]));
-
-            var token = new JwtSecurityToken(
-                _configuration.GetSection("Identity")["JwtIssuer"],
-                _configuration.GetSection("Identity")["JwtIssuer"],
-                claims,
-                expires: expires,
-                signingCredentials: credentials
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        
     }
 }

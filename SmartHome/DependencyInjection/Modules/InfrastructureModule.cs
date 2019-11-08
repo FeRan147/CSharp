@@ -18,7 +18,7 @@ using IdentityInterfaces.Models;
 using IdentityServices.Stores;
 using IdentityInterfaces.Interfaces;
 using IdentityServices.Managers;
-using DependencyInjection.Configs;
+using DependencyInjection.Configuration;
 using Microsoft.Extensions.Logging;
 using IdentityServices.Configuration;
 
@@ -30,10 +30,6 @@ namespace DependencyInjection.Modules
         {
             services.AddSingleton<IContextFactory, ContextFactory>();
             services.AddDbContext<DefaultContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString")));
-
-            IdentityConfiguration.Configure(services, configuration);
-
-            JwtConfiguration.Configure(services, configuration);
         }
     }
 }

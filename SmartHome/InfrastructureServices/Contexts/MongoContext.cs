@@ -23,7 +23,7 @@ namespace InfrastructureServices.Contexts
         {
             get
             {
-                return _database.GetCollection<Device>("Device");
+                return _database.GetCollection<Device>("Devices");
             }
         }
 

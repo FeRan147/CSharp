@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace DependencyInjection.Configs
+namespace DependencyInjection.Configuration
 {
     public static class JwtConfiguration
     {

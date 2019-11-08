@@ -14,6 +14,7 @@ namespace Api.Helpers
         public static void Register(IServiceCollection services, IConfiguration configuration)
         {
             InfrastructureModule.Register(services, configuration);
+            IdentityModule.Register(services, configuration);
             DomainModule.Register(services, configuration);
             MqttModule.Register(services, configuration);
             MicroServicesModule.Register(services, configuration);

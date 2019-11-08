@@ -6,6 +6,7 @@ using DomainInterfaces.Interfaces;
 using DomainInterfaces.Models;
 using InfrastructureInterfaces.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using I = InfrastructureInterfaces.Models;
 
 namespace DomainServices.Services
@@ -129,41 +130,31 @@ namespace DomainServices.Services
             }
         }
 
-        /*public async Task<Device> GetDeviceMongo(Device device)
+        public async Task<IList<Device>> GetAllFromMongoAsync()
         {
             using (var context = _contextFactory.GetMongoContext())
             {
-                var devicesQuery = context.Devices;
+                var devices = await context.Devices.FindAsync(_ => true);
 
-                var devices = await context.Devices.FindAsync(device)
-                                    .ToListAsync()
-                                    .ConfigureAwait(false);
+                var mappedDevices = new List<Device>();
 
-                return devices.Select(item =>
+                await devices.ForEachAsync(item =>
                 {
                     var entity = _mapper.Map<Device>(item);
-                    return entity;
-                }).ToList();
+                    mappedDevices.Add(entity);
+                }).ConfigureAwait(false);
+
+                return mappedDevices;
             }
         }
 
-        public async Task<Device> SetDeviceMongo(Device device)
+        public async Task SetDeviceMongoAsync(Device device)
         {
             using (var context = _contextFactory.GetMongoContext())
             {
-                var devicesQuery = context.Devices;
-
-                var devices = await devicesQuery
-                                    .ToListAsync()
-                                    .ConfigureAwait(false);
-
-                return devices.Select(item =>
-                {
-                    var entity = _mapper.Map<Device>(item);
-                    return entity;
-                }).ToList();
+                await context.Devices.InsertOneAsync(_mapper.Map<I.Device>(device));
             }
-        }*/
+        }
 
         public void Dispose()
         {

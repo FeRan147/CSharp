@@ -15,22 +15,25 @@ namespace InfrastructureServices.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("IdentityInterfaces.Models.ApplicationRole", b =>
+            modelBuilder.Entity("IdentityInterfaces.Models.Role", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -46,53 +49,67 @@ namespace InfrastructureServices.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "27797548-06d8-4c7a-b1e2-787c39c3ca51",
+                            ConcurrencyStamp = "64dcb2d5-6fa8-431d-b792-9b2509bc5ff5",
                             Name = "Read/Write/Delete"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "d95f71c9-2b86-4ed2-b109-e482d71e2c72",
+                            ConcurrencyStamp = "e0c453ff-3b0c-44d7-9544-79f3e05caa0c",
                             Name = "only Read"
                         });
                 });
 
-            modelBuilder.Entity("IdentityInterfaces.Models.ApplicationUser", b =>
+            modelBuilder.Entity("IdentityInterfaces.Models.User", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<bool>("LockoutEnabled");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd");
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("PasswordHash");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("SecurityStamp");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TwoFactorEnabled");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -112,7 +129,7 @@ namespace InfrastructureServices.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "db77a43e-a513-42c4-8219-9e16fee335a7",
+                            ConcurrencyStamp = "f53ec0b3-fc45-475b-9f41-00b5b93fbf00",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
@@ -123,7 +140,7 @@ namespace InfrastructureServices.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8efcfd62-af76-429f-a005-79188530efb6",
+                            ConcurrencyStamp = "7de1437b-e67c-4c2e-8a97-5bf8f31b3915",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
@@ -136,16 +153,27 @@ namespace InfrastructureServices.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Availibility");
+                    b.Property<bool>("Availibility")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Devices");
 
@@ -154,61 +182,71 @@ namespace InfrastructureServices.Migrations
                         {
                             Id = 1,
                             Availibility = false,
-                            Name = "Телевизор"
+                            Name = "Телевизор",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 2,
                             Availibility = false,
-                            Name = "Холодильник"
+                            Name = "Холодильник",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 3,
                             Availibility = true,
-                            Name = "Телефон"
+                            Name = "Телефон",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 4,
                             Availibility = false,
-                            Name = "Вентилятор"
+                            Name = "Вентилятор",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 5,
                             Availibility = true,
-                            Name = "Кондиционер"
+                            Name = "Кондиционер",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 6,
                             Availibility = false,
-                            Name = "Приставка"
+                            Name = "Приставка",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 7,
                             Availibility = false,
-                            Name = "Мультиварка"
+                            Name = "Мультиварка",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 8,
                             Availibility = true,
-                            Name = "Компьютер"
+                            Name = "Компьютер",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 9,
                             Availibility = false,
-                            Name = "Принтер"
+                            Name = "Принтер",
+                            UserId = 0
                         },
                         new
                         {
                             Id = 10,
                             Availibility = true,
-                            Name = "Сканер"
+                            Name = "Сканер",
+                            UserId = 0
                         });
                 });
 
@@ -216,14 +254,18 @@ namespace InfrastructureServices.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClaimType");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -236,14 +278,18 @@ namespace InfrastructureServices.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClaimType");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -254,14 +300,18 @@ namespace InfrastructureServices.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderDisplayName");
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -272,9 +322,11 @@ namespace InfrastructureServices.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("RoleId");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -285,62 +337,79 @@ namespace InfrastructureServices.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Value");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("InfrastructureInterfaces.Models.Device", b =>
+                {
+                    b.HasOne("IdentityInterfaces.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("IdentityInterfaces.Models.ApplicationRole")
+                    b.HasOne("IdentityInterfaces.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("IdentityInterfaces.Models.ApplicationUser")
+                    b.HasOne("IdentityInterfaces.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("IdentityInterfaces.Models.ApplicationUser")
+                    b.HasOne("IdentityInterfaces.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("IdentityInterfaces.Models.ApplicationRole")
+                    b.HasOne("IdentityInterfaces.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("IdentityInterfaces.Models.ApplicationUser")
+                    b.HasOne("IdentityInterfaces.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("IdentityInterfaces.Models.ApplicationUser")
+                    b.HasOne("IdentityInterfaces.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,8 +1,20 @@
 import * as tslib_1 from "tslib";
 import { Component, Input } from '@angular/core';
+import { StatusCardData } from '../../../@core/data/status-card';
 let StatusCardComponent = class StatusCardComponent {
-    constructor() {
+    constructor(statusCardService) {
+        this.statusCardService = statusCardService;
         this.on = true;
+    }
+    switch() {
+        this.on = !this.on;
+        console.log(this.on);
+        if (!this.on) {
+            this.statusCardService.switchOff().subscribe();
+        }
+        else {
+            this.statusCardService.switchOn().subscribe();
+        }
     }
 };
 tslib_1.__decorate([
@@ -21,21 +33,9 @@ StatusCardComponent = tslib_1.__decorate([
     Component({
         selector: 'ngx-status-card',
         styleUrls: ['./status-card.component.scss'],
-        template: `
-    <nb-card (click)="on = !on" [ngClass]="{'off': !on}">
-      <div class="icon-container">
-        <div class="icon status-{{ type }}">
-          <ng-content></ng-content>
-        </div>
-      </div>
-
-      <div class="details">
-        <div class="title h5">{{ title }}</div>
-        <div class="status paragraph-2">{{ on ? 'ON' : 'OFF' }}</div>
-      </div>
-    </nb-card>
-  `,
-    })
+        templateUrl: './status-card.component.html',
+    }),
+    tslib_1.__metadata("design:paramtypes", [StatusCardData])
 ], StatusCardComponent);
 export { StatusCardComponent };
 //# sourceMappingURL=status-card.component.js.map

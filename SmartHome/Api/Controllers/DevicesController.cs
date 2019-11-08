@@ -19,7 +19,7 @@ using MqttClientEnactor.Messages;
 
 namespace Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DevicesController : ControllerBase, IBaseController<DeviceViewModel>
@@ -136,6 +136,26 @@ namespace Api.Controllers
 
             var response = await _endpoint.Request<HttpStatusCode>(message)
                 .ConfigureAwait(false);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task SaveDeviceMongoAsync([FromBody] DeviceViewModel device)
+        {
+            await _deviceService.SetDeviceMongoAsync(_mapper.Map<D.Device>(device));
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IEnumerable<DeviceViewModel>> GetAllMongoAsync()
+        {
+            var devices = await _deviceService.GetAllFromMongoAsync();
+
+            return devices.Select(item =>
+            {
+                var entity = _mapper.Map<DeviceViewModel>(item);
+                return entity;
+            }).ToList();
         }
     }
 }

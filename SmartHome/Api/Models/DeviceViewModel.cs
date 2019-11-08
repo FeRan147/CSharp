@@ -10,5 +10,7 @@ namespace Api.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Availibility { get; set; }
+        public int UserId { get; set; }
+        public UserViewModel User { get; set; }
     }
 }
