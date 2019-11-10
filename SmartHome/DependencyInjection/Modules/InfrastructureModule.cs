@@ -18,7 +18,6 @@ using IdentityInterfaces.Models;
 using IdentityServices.Stores;
 using IdentityInterfaces.Interfaces;
 using IdentityServices.Managers;
-using DependencyInjection.Configuration;
 using Microsoft.Extensions.Logging;
 using IdentityServices.Configuration;
 

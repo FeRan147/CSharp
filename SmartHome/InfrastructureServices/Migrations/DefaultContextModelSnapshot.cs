@@ -49,14 +49,14 @@ namespace InfrastructureServices.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "0d27956c-46cf-423c-aa09-3af5a26abe46",
+                            ConcurrencyStamp = "2f8b9194-26c9-4b9c-bd9a-6aa984a9726c",
                             Name = "Read/Write/Delete"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "2401ff47-1c80-4d9f-b7b1-ce86c5e4d88c",
-                            Name = "only Read"
+                            ConcurrencyStamp = "b19537e1-69a5-4205-9c2d-e5e9253ce783",
+                            Name = "Only Read"
                         });
                 });
 
@@ -123,30 +123,6 @@ namespace InfrastructureServices.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "19301445-e602-4313-b201-4221c1eb058e",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "Паша"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "4703cc20-93c8-46e3-8572-1de1ae8d35b7",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "Женя"
-                        });
                 });
 
             modelBuilder.Entity("InfrastructureInterfaces.Models.Device", b =>
@@ -155,9 +131,6 @@ namespace InfrastructureServices.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Availibility")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -176,78 +149,33 @@ namespace InfrastructureServices.Migrations
                     b.HasIndex("UserId1");
 
                     b.ToTable("Devices");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Availibility = false,
-                            Name = "Телевизор",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Availibility = false,
-                            Name = "Холодильник",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Availibility = true,
-                            Name = "Телефон",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Availibility = false,
-                            Name = "Вентилятор",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Availibility = true,
-                            Name = "Кондиционер",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Availibility = false,
-                            Name = "Приставка",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Availibility = false,
-                            Name = "Мультиварка",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Availibility = true,
-                            Name = "Компьютер",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Availibility = false,
-                            Name = "Принтер",
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Availibility = true,
-                            Name = "Сканер",
-                            UserId = 0
-                        });
+            modelBuilder.Entity("InfrastructureInterfaces.Models.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using AIM = IdentityInterfaces.Models;
 using IdentityInterfaces.Interfaces;
 using DomainInterfaces.Models;
+using Microsoft.Extensions.Logging;
 
 namespace DomainServices.Services
 {
@@ -21,17 +22,20 @@ namespace DomainServices.Services
         private readonly IMapper _mapper;
         private readonly IApplicationSignInManager _signInManager;
         private readonly IApplicationUserManager _userManager;
+        private readonly ILogger _logger;
 
         public AccountService(
             IConfiguration configuration, 
             IMapper mapper,
             IApplicationUserManager userManager,
-            IApplicationSignInManager signInManager)
+            IApplicationSignInManager signInManager,
+            ILogger<AccountService> logger)
         {
             _configuration = configuration;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         public async Task<object> LoginAsync(User user)
@@ -68,7 +72,7 @@ namespace DomainServices.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };

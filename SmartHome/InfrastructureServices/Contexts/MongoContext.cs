@@ -1,5 +1,5 @@
 ﻿using InfrastructureInterfaces.Interfaces;
-using InfrastructureInterfaces.Models;
+using InfrastructureInterfaces.MongoModels;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
@@ -19,11 +19,19 @@ namespace InfrastructureServices.Contexts
                 _database = client.GetDatabase(configuration.GetSection("Mongo").GetSection("DatabaseName").Value);
         }
 
-        public IMongoCollection<Device> Devices
+        public IMongoCollection<OnlineDevice> OnlineDevices
         {
             get
             {
-                return _database.GetCollection<Device>("Devices");
+                return _database.GetCollection<OnlineDevice>("OnlineDevices");
+            }
+        }
+
+        public IMongoCollection<TopicDevice> TopicDevices
+        {
+            get
+            {
+                return _database.GetCollection<TopicDevice>("TopicDevices");
             }
         }
 

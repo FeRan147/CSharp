@@ -1,8 +1,6 @@
-﻿using MicroServices.Messages.Devices;
+﻿using MicroServices.Messages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MqttClientEnactor.Messages;
-using MqttServerBroker.Messages;
 using NServiceBus;
 using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using System;
@@ -31,19 +29,16 @@ namespace DependencyInjection.Modules
             var routerConfig = transport.Routing();
 
             routerConfig.RouteToEndpoint(
-                assembly: typeof(AddDevice).Assembly,
-                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
-            routerConfig.RouteToEndpoint(
-                assembly: typeof(UpdateDevice).Assembly,
-                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
-            routerConfig.RouteToEndpoint(
-                assembly: typeof(RemoveDevice).Assembly,
-                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
-            routerConfig.RouteToEndpoint(
                 assembly: typeof(MqttReceivedMessage).Assembly,
                 destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
             routerConfig.RouteToEndpoint(
                 assembly: typeof(MqttResponseMessage).Assembly,
+                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+            routerConfig.RouteToEndpoint(
+                assembly: typeof(MqttConnectMessage).Assembly,
+                destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
+            routerConfig.RouteToEndpoint(
+                assembly: typeof(MqttDisconnectMessage).Assembly,
                 destination: configuration.GetSection("MicroServices").GetSection("Endpoint").Value);
 
             var discriminator = configuration.GetSection("MicroServices").GetSection("Discriminator").Value;

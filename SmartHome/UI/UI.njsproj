@@ -34,7 +34,6 @@
   <ItemGroup>
     <Content Include="angular.json" />
     <Content Include="karma.conf.js" />
-    <Content Include="protractor.conf.js" />
     <Content Include="src\app\%40core\data\.gitkeep" />
     <Content Include="src\app\%40core\data\README.md" />
     <Content Include="src\app\%40core\mock\README.md" />
@@ -110,7 +109,6 @@
     <Content Include="src\tsconfig.spec.json" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
-    <Content Include="README.md" />
     <Content Include="tslint.json" />
   </ItemGroup>
   <ItemGroup>

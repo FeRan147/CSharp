@@ -9,6 +9,7 @@ namespace Api.Mapper
         public ApiProfile()
         {
             CreateMap<DeviceViewModel, D.Device>().ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
+            CreateMap<LogViewModel, D.Log>().ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
             CreateMap<UserViewModel, D.User>().ReverseMap();
             CreateMap<RoleViewModel, D.Role>().ReverseMap();
             CreateMap<UserViewModel, D.User>().ReverseMap();

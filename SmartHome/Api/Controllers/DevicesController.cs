@@ -1,5 +1,4 @@
-﻿using Api.Interfaces;
-using Api.Models;
+﻿using Api.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,32 +10,34 @@ using DomainInterfaces.Interfaces;
 using D = DomainInterfaces.Models;
 using NServiceBus;
 using System.Net;
-using MicroServices.Messages.Devices;
 using Microsoft.Extensions.Configuration;
 using MQTTnet;
 using System.Text;
-using MqttClientEnactor.Messages;
+using Microsoft.Extensions.Logging;
+using MicroServices.Messages;
 
 namespace Api.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class DevicesController : ControllerBase, IBaseController<DeviceViewModel>
+    public class DevicesController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IDeviceService _deviceService;
+        private readonly ILogger _logger;
         private readonly IEndpointInstance _endpoint;
 
-        public DevicesController(IMapper mapper, IDeviceService deviceService, IEndpointInstance endpoint)
+        public DevicesController(IMapper mapper, IDeviceService deviceService, ILogger<DevicesController> logger, IEndpointInstance endpoint)
         {
             _mapper = mapper;
             _deviceService = deviceService;
+            _logger = logger;
             _endpoint = endpoint;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<DeviceViewModel>> GetAllAsync()
+        public async Task<IList<DeviceViewModel>> GetAllAsync()
         {
             var devices = await _deviceService.GetAllAsync();
 
@@ -63,43 +64,6 @@ namespace Api.Controllers
                 var entity = _mapper.Map<DeviceViewModel>(item);
                 return entity;
             }).ToList();
-        }
-
-        [HttpPost]
-        public async Task PostAsync([FromBody] DeviceViewModel device)
-        {
-            var message = new AddDevice()
-            {
-                Device = _mapper.Map<D.Device>(device)
-            };
-
-            var response = await _endpoint.Request<HttpStatusCode>(message)
-                .ConfigureAwait(false);
-        }
-
-        [HttpPut("{id:int}")]
-        public async Task PutAsync(int id, [FromBody] DeviceViewModel device)
-        {
-            var message = new UpdateDevice()
-            {
-                Id = id,
-                Device = _mapper.Map<D.Device>(device)
-            };
-
-            var response = await _endpoint.Request<HttpStatusCode>(message)
-                .ConfigureAwait(false);
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task DeleteAsync(int id)
-        {
-            var message = new RemoveDevice()
-            {
-                Id = id
-            };
-
-            var response = await _endpoint.Request<HttpStatusCode>(message)
-                .ConfigureAwait(false);
         }
 
         [AllowAnonymous]
@@ -138,26 +102,6 @@ namespace Api.Controllers
 
             var response = await _endpoint.Request<HttpStatusCode>(message)
                 .ConfigureAwait(false);
-        }
-
-        [HttpPost]
-        [Route("[action]")]
-        public async Task SaveDeviceMongoAsync([FromBody] DeviceViewModel device)
-        {
-            await _deviceService.SetDeviceMongoAsync(_mapper.Map<D.Device>(device));
-        }
-
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<IEnumerable<DeviceViewModel>> GetAllMongoAsync()
-        {
-            var devices = await _deviceService.GetAllFromMongoAsync();
-
-            return devices.Select(item =>
-            {
-                var entity = _mapper.Map<DeviceViewModel>(item);
-                return entity;
-            }).ToList();
         }
     }
 }

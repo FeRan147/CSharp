@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MqttClientEnactor.Interfaces;
-using MqttClientEnactor.Messages;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Disconnecting;
@@ -29,16 +28,17 @@ namespace MqttClientEnactor.ClientEnactor
 
         }
 
-        public async Task PublishAsync(MqttResponseMessage message)
+        public async Task PublishAsync(MqttApplicationMessage message)
         {
             var options = new MqttClientOptionsBuilder()
+                                .WithClientId(_configuration.GetSection("MQTT").GetSection("MqttClientEnactorName").Value)
                                 .WithTcpServer(_configuration.GetSection("MQTT").GetSection("IP").Value, int.Parse(_configuration.GetSection("MQTT").GetSection("Port").Value))
                                 .Build();
 
             var client = new MqttFactory().CreateMqttClient();
 
             await client.ConnectAsync(options);
-            await client.PublishAsync(message.Message.Topic, Encoding.UTF8.GetString(message.Message.Payload), MqttQualityOfServiceLevel.AtMostOnce);
+            await client.PublishAsync(message.Topic, Encoding.UTF8.GetString(message.Payload), MqttQualityOfServiceLevel.AtMostOnce);
             await client.DisconnectAsync();
         }
     }

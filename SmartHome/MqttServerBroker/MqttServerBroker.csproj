@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MicroServices\MicroServices.csproj" />
+    <ProjectReference Include="..\MqttServerBrokerInterfaces\MqttServerBrokerInterfaces.csproj" />
   </ItemGroup>
 
 </Project>

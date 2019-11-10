@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DomainInterfaces\DomainInterfaces.csproj" />
     <ProjectReference Include="..\InfrastructureInterfaces\InfrastructureInterfaces.csproj" />
+    <ProjectReference Include="..\MqttClientEnactorInterfaces\MqttClientEnactorInterfaces.csproj" />
   </ItemGroup>
 
 </Project>

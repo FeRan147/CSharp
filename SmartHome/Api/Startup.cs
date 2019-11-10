@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Helpers;
+using Api.LoggerProvider;
+using AutoMapper;
+using DomainInterfaces.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +20,7 @@ using Microsoft.OpenApi.Models;
 using MqttClientEnactor.Interfaces;
 using MQTTnet.AspNetCore;
 using MQTTnet.Client.Receiving;
-using MqttServerBroker.Interfaces;
+using MqttServerBrokerInterfaces.Interfaces;
 using NServiceBus;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -38,6 +41,8 @@ namespace Api
             services.AddCors();
             services.AddControllers();
 
+            services.AddLogging();
+
             RegisterAutoMapper.Register(services, Configuration);
             RegisterDependencyInjectionModules.Register(services, Configuration);
             RegisterValidators.Register(services, Configuration);
@@ -49,7 +54,7 @@ namespace Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMqttServerBroker mqttServer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ILogService logService, IMapper mapper, IMqttServerBroker mqttServer)
         {
             if (env.IsDevelopment())
             {
@@ -61,6 +66,8 @@ namespace Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            loggerFactory.AddProvider(new LoggerDatabaseProvider(mapper, logService));
 
             app.UseHttpsRedirection();
 

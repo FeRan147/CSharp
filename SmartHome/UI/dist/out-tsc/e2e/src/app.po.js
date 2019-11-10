@@ -1,14 +1,10 @@
-import { browser, by, element } from "protractor";
-var AppPage = /** @class */ (function () {
-    function AppPage() {
-    }
-    AppPage.prototype.navigateTo = function () {
+import { browser, by, element } from 'protractor';
+export class AppPage {
+    navigateTo() {
         return browser.get(browser.baseUrl);
-    };
-    AppPage.prototype.getTitleText = function () {
-        return element(by.css("app-root h1")).getText();
-    };
-    return AppPage;
-}());
-export { AppPage };
+    }
+    getTitleText() {
+        return element(by.css('app-root .content span')).getText();
+    }
+}
 //# sourceMappingURL=app.po.js.map

@@ -1,5 +1,4 @@
-﻿using DependencyInjection.Configuration;
-using IdentityServices.Configuration;
+﻿using IdentityServices.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;

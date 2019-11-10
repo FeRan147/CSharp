@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using DependencyInjection.Configuration;
 using DomainInterfaces.Interfaces;
 using DomainServices.Services;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,7 @@ namespace DependencyInjection.Modules
         public static void Register(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IDeviceService, DeviceService>();
+            services.AddScoped<ILogService, LogService>();
             services.AddScoped<IAccountService, AccountService>();
         }
     }

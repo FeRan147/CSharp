@@ -1,31 +1,21 @@
-import { __awaiter, __generator } from "tslib";
-import { AppPage } from "./app.po";
-import { browser, logging } from "protractor";
-describe("workspace-project App", function () {
-    var page;
-    beforeEach(function () {
+import * as tslib_1 from "tslib";
+import { AppPage } from './app.po';
+import { browser, logging } from 'protractor';
+describe('workspace-project App', () => {
+    let page;
+    beforeEach(() => {
         page = new AppPage();
     });
-    it("should display welcome message", function () {
+    it('should display welcome message', () => {
         page.navigateTo();
-        expect(page.getTitleText()).toEqual("Welcome to black-dashboard-angular!");
+        expect(page.getTitleText()).toEqual('UI app is running!');
     });
-    afterEach(function () { return __awaiter(void 0, void 0, void 0, function () {
-        var logs;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, browser
-                        .manage()
-                        .logs()
-                        .get(logging.Type.BROWSER)];
-                case 1:
-                    logs = _a.sent();
-                    expect(logs).not.toContain(jasmine.objectContaining({
-                        level: logging.Level.SEVERE
-                    }));
-                    return [2 /*return*/];
-            }
-        });
-    }); });
+    afterEach(() => tslib_1.__awaiter(this, void 0, void 0, function* () {
+        // Assert that there are no errors emitted from the browser
+        const logs = yield browser.manage().logs().get(logging.Type.BROWSER);
+        expect(logs).not.toContain(jasmine.objectContaining({
+            level: logging.Level.SEVERE,
+        }));
+    }));
 });
 //# sourceMappingURL=app.e2e-spec.js.map

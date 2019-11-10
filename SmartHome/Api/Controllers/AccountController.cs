@@ -16,6 +16,7 @@ using DomainInterfaces.Interfaces;
 using D = DomainInterfaces.Models;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace Api.Controllers
 {
@@ -26,13 +27,16 @@ namespace Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
+        private readonly ILogger _logger;
 
         public AccountController(
             IMapper mapper,
-            IAccountService accountService)
+            IAccountService accountService,
+            ILogger<AccountController> logger)
         {
             _mapper = mapper;
             _accountService = accountService;
+            _logger = logger;
         }
 
         [AllowAnonymous]
