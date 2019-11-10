@@ -35,11 +35,12 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            services.AddControllers();
+
             RegisterAutoMapper.Register(services, Configuration);
             RegisterDependencyInjectionModules.Register(services, Configuration);
             RegisterValidators.Register(services, Configuration);
-
-            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
@@ -65,9 +66,10 @@ namespace Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

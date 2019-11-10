@@ -102,6 +102,7 @@ namespace Api.Controllers
                 .ConfigureAwait(false);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
         public async Task SetLightOnAsync()
@@ -120,6 +121,7 @@ namespace Api.Controllers
                 .ConfigureAwait(false);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
         public async Task SetLightOffAsync()
