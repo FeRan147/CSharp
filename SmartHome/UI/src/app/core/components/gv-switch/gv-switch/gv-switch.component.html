@@ -1,0 +1,24 @@
+<div #switchElement
+
+	class="gv-switch"
+  [class.gv-switch-checked]="checked"
+  [class.gv-switch-small]="nzSize === 'small'">
+
+  <div class="gv-switch-inner">
+		<div [ngClass]="{'active' : checked}" class="gv-switch-inner--icon">
+			<ng-container *gvStringTemplateOutlet="gvIcon">{{ gvIcon }}</ng-container>
+		</div>
+		<div class="gv-switch-inner--text">
+				<div class="gv-switch-inner--text--flex">
+						<ng-container *ngIf="name; else nothig">{{ name }}</ng-container>
+						<span style="font-size: 13px;"  *ngIf="checked">ON</span>
+						<span style="font-size: 13px;"  *ngIf="!checked">OFF</span>
+				</div>
+		</div>
+	</div>
+	
+</div>
+
+<ng-template #nothig>
+	Введите название
+</ng-template>

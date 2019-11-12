@@ -13,6 +13,14 @@ import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
 import { RegisterComponent } from './modules/register/register.component';
 import { AlertComponent } from './directives/alert.component';
+import { GvSwitchModule } from './core/components/gv-switch/gv-switch.module';
+import { NgZorroAntdModule, NZ_I18N, ru_RU } from 'ng-zorro-antd';
+import { IconsProviderModule } from './icons-provider.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { registerLocaleData } from '@angular/common';
+import ru from '@angular/common/locales/ru';
+
+registerLocaleData(ru);
 
 @NgModule({
   declarations: [
@@ -26,7 +34,11 @@ import { AlertComponent } from './directives/alert.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GvSwitchModule,
+    NgZorroAntdModule,
+    IconsProviderModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,
@@ -37,7 +49,8 @@ import { AlertComponent } from './directives/alert.component';
         provide: HTTP_INTERCEPTORS,
         useClass: JwtInterceptor,
         multi: true
-    }
+    },
+    { provide: NZ_I18N, useValue: ru_RU }
   ],
   bootstrap: [AppComponent]
 })
