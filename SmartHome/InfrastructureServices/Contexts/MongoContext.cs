@@ -7,30 +7,17 @@ namespace InfrastructureServices.Contexts
 {
     public class MongoContext : IMongoContext
     {
-        private readonly IMongoDatabase _database = null;
+        private readonly IMongoDatabase _database;
 
         public MongoContext(IConfiguration configuration)
         {
             var client = new MongoClient(configuration.GetSection("Mongo").GetSection("ConnectionString").Value);
-            if (client != null)
-                _database = client.GetDatabase(configuration.GetSection("Mongo").GetSection("DatabaseName").Value);
+            _database = client.GetDatabase(configuration.GetSection("Mongo").GetSection("DatabaseName").Value);
         }
 
-        public IMongoCollection<OnlineDevice> OnlineDevices
-        {
-            get
-            {
-                return _database.GetCollection<OnlineDevice>("OnlineDevices");
-            }
-        }
+        public IMongoCollection<OnlineDevice> OnlineDevices => _database.GetCollection<OnlineDevice>("OnlineDevices");
 
-        public IMongoCollection<TopicDevice> TopicDevices
-        {
-            get
-            {
-                return _database.GetCollection<TopicDevice>("TopicDevices");
-            }
-        }
+        public IMongoCollection<TopicDevice> TopicDevices => _database.GetCollection<TopicDevice>("TopicDevices");
 
         public void Dispose()
         {

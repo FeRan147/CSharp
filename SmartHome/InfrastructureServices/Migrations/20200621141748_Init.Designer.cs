@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfrastructureServices.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20191110213259_First")]
-    partial class First
+    [Migration("20200621141748_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -51,13 +51,13 @@ namespace InfrastructureServices.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "2f8b9194-26c9-4b9c-bd9a-6aa984a9726c",
+                            ConcurrencyStamp = "4fdfbc35-d6c1-4452-a3ce-38334abfb822",
                             Name = "Read/Write/Delete"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "b19537e1-69a5-4205-9c2d-e5e9253ce783",
+                            ConcurrencyStamp = "e300318a-7749-40a1-b947-9fc28463aa29",
                             Name = "Only Read"
                         });
                 });
