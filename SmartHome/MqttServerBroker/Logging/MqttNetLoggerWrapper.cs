@@ -6,36 +6,50 @@ using MQTTnet.Server;
 
 namespace MqttServerBroker.Logging
 {
-    public class MqttNetLoggerWrapper : IMqttNetLogger
+    public sealed class MqttNetLoggerWrapper : IMqttNetLogger
     {
-        private readonly ILogger _logger;
+        readonly ILogger<MqttServer> _logger;
 
-        public MqttNetLoggerWrapper(ILogger logger)
+        public MqttNetLoggerWrapper(ILogger<MqttServer> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public event EventHandler<MqttNetLogMessagePublishedEventArgs> LogMessagePublished;
 
-        public IMqttNetChildLogger CreateChildLogger(string source = null)
+        public IMqttNetScopedLogger CreateScopedLogger(string source)
         {
-            return new MqttNetChildLoggerWrapper(source, this);
+            return new MqttNetScopedLogger(this, source);
         }
 
-        public void Publish(MqttNetLogLevel logLevel, string source, string message, object[] parameters, Exception exception)
+        public void Publish(MqttNetLogLevel level, string source, string message, object[] parameters, Exception exception)
         {
-            var convertedLogLevel = ConvertLogLevel(logLevel);
+            var convertedLogLevel = ConvertLogLevel(level);
             _logger.Log(convertedLogLevel, exception, message, parameters);
 
             var logMessagePublishedEvent = LogMessagePublished;
             if (logMessagePublishedEvent != null)
             {
-                var logMessage = new MqttNetLogMessage(null, DateTime.UtcNow, Thread.CurrentThread.ManagedThreadId, source, logLevel, message, exception);
+                var logMessage = new MqttNetLogMessage
+                {
+                    Timestamp = DateTime.UtcNow,
+                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    Source = source,
+                    Level = level,
+                    Message = message,
+                    Exception = exception
+                };
+
                 logMessagePublishedEvent.Invoke(this, new MqttNetLogMessagePublishedEventArgs(logMessage));
             }
         }
-        
-        private static LogLevel ConvertLogLevel(MqttNetLogLevel logLevel)
+
+        public void Publish(MqttNetLogLevel logLevel, string message, object[] parameters, Exception exception)
+        {
+            Publish(logLevel, null, message, parameters, exception);
+        }
+
+        static LogLevel ConvertLogLevel(MqttNetLogLevel logLevel)
         {
             switch (logLevel)
             {

@@ -22,13 +22,13 @@ namespace MqttServerBroker.ServerBroker
         private readonly IMqttApplicationMessageReceivedHandler _messageReceivedHandler;
         private readonly IMqttServerClientConnectedHandler _clientConnectedHandler;
         private readonly IMqttServerClientDisconnectedHandler _clientDisconnectedHandler;
-        private readonly ILogger _logger;
+        private readonly ILogger<MqttServer> _logger;
 
         public MqttServerBroker(IMqttApplicationMessageReceivedHandler messageReceivedHandler,
             IMqttServerClientConnectedHandler clientConnectedHandler,
             IMqttServerClientDisconnectedHandler clientDisconnectedHandler,
             IConfiguration configuration,
-            ILogger<MqttServerBroker> logger)
+            ILogger<MqttServer> logger)
         {
             _messageReceivedHandler = messageReceivedHandler;
             _clientConnectedHandler = clientConnectedHandler;

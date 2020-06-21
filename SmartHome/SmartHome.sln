@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainServices", "DomainSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfrastructureServices", "InfrastructureServices\InfrastructureServices.csproj", "{EB197428-7A69-4A2D-A60C-C00E759C5312}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "UI", "UI\UI.njsproj", "{81935E09-ADFA-416D-BDCB-6A0C72C77A13}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServices", "IdentityServices\IdentityServices.csproj", "{262E739E-1FA4-4567-9F8A-C92A574725B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityInterfaces", "IdentityInterfaces\IdentityInterfaces.csproj", "{7482C19D-D764-4613-8E6E-2EACC77B5724}"
@@ -34,9 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MqttServerBroker", "MqttSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MqttClientEnactor", "MqttClientEnactor\MqttClientEnactor.csproj", "{08619E03-873D-4006-A17D-A691258A55CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttClientEnactorInterfaces", "MqttClientEnactorInterfaces\MqttClientEnactorInterfaces.csproj", "{01FC23AF-FA33-45C9-8919-6A162E63C710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MqttClientEnactorInterfaces", "MqttClientEnactorInterfaces\MqttClientEnactorInterfaces.csproj", "{01FC23AF-FA33-45C9-8919-6A162E63C710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttServerBrokerInterfaces", "MqttServerBrokerInterfaces\MqttServerBrokerInterfaces.csproj", "{E94A4826-A76E-47ED-9C10-B451A3F5699C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MqttServerBrokerInterfaces", "MqttServerBrokerInterfaces\MqttServerBrokerInterfaces.csproj", "{E94A4826-A76E-47ED-9C10-B451A3F5699C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +66,6 @@ Global
 		{EB197428-7A69-4A2D-A60C-C00E759C5312}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB197428-7A69-4A2D-A60C-C00E759C5312}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB197428-7A69-4A2D-A60C-C00E759C5312}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81935E09-ADFA-416D-BDCB-6A0C72C77A13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{262E739E-1FA4-4567-9F8A-C92A574725B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{262E739E-1FA4-4567-9F8A-C92A574725B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{262E739E-1FA4-4567-9F8A-C92A574725B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -106,7 +100,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3FEC4BFE-055B-46E0-A144-0F18D273F316} = {45B82F00-DC91-4A2D-B7B5-7940CBEEFD2D}
-		{81935E09-ADFA-416D-BDCB-6A0C72C77A13} = {45B82F00-DC91-4A2D-B7B5-7940CBEEFD2D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE1E4051-C979-46B9-A281-51757B96A163}
