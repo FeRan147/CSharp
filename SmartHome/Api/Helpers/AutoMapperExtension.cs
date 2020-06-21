@@ -11,9 +11,9 @@ using DomainInterfaces.Mapper;
 
 namespace Api.Helpers
 {
-    public static class RegisterAutoMapper
+    public static class AutoMapperExtension
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        public static void RegisterAutoMapper(this IServiceCollection services, IConfiguration configuration)
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {

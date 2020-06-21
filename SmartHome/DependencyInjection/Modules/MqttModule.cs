@@ -16,7 +16,7 @@ namespace DependencyInjection.Modules
 {
     public static class MqttModule
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        public static void MqttModuleRegister(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IMqttServerClientConnectedHandler, ClientConnectedHandler>();
             services.AddSingleton<IMqttServerClientDisconnectedHandler, ClientDisconnectedHandler>();

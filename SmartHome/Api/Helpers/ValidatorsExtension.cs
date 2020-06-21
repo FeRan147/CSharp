@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Api.Helpers
 {
-    public static class RegisterValidators
+    public static class ValidatorsExtension
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        public static void RegisterValidators(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IValidator<DeviceViewModel>, DeviceViewModelValidator>();
         }

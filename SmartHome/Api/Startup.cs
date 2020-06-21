@@ -43,9 +43,9 @@ namespace Api
 
             services.AddLogging();
 
-            RegisterAutoMapper.Register(services, Configuration);
-            RegisterDependencyInjectionModules.Register(services, Configuration);
-            RegisterValidators.Register(services, Configuration);
+            services.RegisterAutoMapper(Configuration);
+            services.RegisterDependencyInjectionModules(Configuration);
+            services.RegisterValidators(Configuration);
 
             services.AddSwaggerGen(c =>
             {

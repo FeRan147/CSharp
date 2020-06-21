@@ -12,7 +12,7 @@ namespace DependencyInjection.Modules
 {
     public static class MicroServicesModule
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        public static void MicroServicesModuleRegister(this IServiceCollection services, IConfiguration configuration)
         {
             IEndpointInstance endpointInstance = null;
             services.AddSingleton<IMessageSession>(_ => endpointInstance);

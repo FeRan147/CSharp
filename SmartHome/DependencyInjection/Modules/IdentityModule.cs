@@ -7,9 +7,9 @@ using System.Text;
 
 namespace DependencyInjection.Modules
 {
-    public class IdentityModule
+    public static class IdentityModule
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        public static void IdentityModuleRegister(this IServiceCollection services, IConfiguration configuration)
         {
             IdentityConfiguration.Configure(services, configuration);
             JwtConfiguration.Configure(services, configuration);

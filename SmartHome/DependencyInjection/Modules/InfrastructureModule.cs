@@ -25,7 +25,7 @@ namespace DependencyInjection.Modules
 {
     public static class InfrastructureModule
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        public static void InfrastructureModuleRegister(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IContextFactory, ContextFactory>();
             services.AddDbContext<DefaultContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString")));
