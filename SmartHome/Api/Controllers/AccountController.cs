@@ -1,20 +1,10 @@
 ﻿using Api.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using AIM = IdentityInterfaces.Models;
-using IdentityInterfaces.Interfaces;
 using DomainInterfaces.Interfaces;
 using D = DomainInterfaces.Models;
-using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
@@ -41,42 +31,42 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<UserViewModel> Login([FromBody] UserViewModel userVM)
+        public async Task<UserViewModel> Login([FromBody] UserViewModel userVm)
         {
-            var result = await _accountService.LoginAsync(_mapper.Map<D.User>(userVM));
+            var result = await _accountService.LoginAsync(_mapper.Map<D.User>(userVm));
 
             Type type = result.GetType();
 
-            if (type.Equals(typeof(string)))
+            if (type == typeof(string))
             {
-                userVM.Token = result.ToString();
+                userVm.Token = result.ToString();
 
-                return userVM;
+                return userVm;
             }
 
-            userVM.Error = result;
+            userVm.Error = result;
 
-            return userVM;
+            return userVm;
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<UserViewModel> Register([FromBody] UserViewModel userVM)
+        public async Task<UserViewModel> Register([FromBody] UserViewModel userVm)
         {
-            var result = await _accountService.RegisterAsync(_mapper.Map<D.User>(userVM));
+            var result = await _accountService.RegisterAsync(_mapper.Map<D.User>(userVm));
 
-            Type type = result.GetType();
+            var type = result.GetType();
 
-            if (type.Equals(typeof(string)))
+            if (type == typeof(string))
             {
-                userVM.Token = result.ToString();
+                userVm.Token = result.ToString();
 
-                return userVM;
+                return userVm;
             }
 
-            userVM.Error = result;
+            userVm.Error = result;
 
-            return userVM;
+            return userVm;
         }
 
         

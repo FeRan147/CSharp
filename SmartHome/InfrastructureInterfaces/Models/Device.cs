@@ -1,5 +1,4 @@
 ﻿using IdentityInterfaces.Models;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace InfrastructureInterfaces.Models
 {

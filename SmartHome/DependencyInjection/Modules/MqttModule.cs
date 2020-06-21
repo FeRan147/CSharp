@@ -3,12 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MqttClientEnactor.Interfaces;
 using MqttClient = MqttClientEnactor.ClientEnactor;
 using MqttServer = MqttServerBroker.ServerBroker;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using MQTTnet.Client.Receiving;
 using MqttServerBroker.Handlers;
-using MQTTnet.Client.Disconnecting;
 using MqttServerBrokerInterfaces.Interfaces;
 using MQTTnet.Server;
 

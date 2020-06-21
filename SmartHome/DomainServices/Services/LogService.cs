@@ -2,9 +2,6 @@
 using DomainInterfaces.Interfaces;
 using DomainInterfaces.Models;
 using InfrastructureInterfaces.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using I = InfrastructureInterfaces.Models;
 

@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using D = DomainInterfaces.Models;
 using DM = DomainInterfaces.MongoModels;
 using AIM = IdentityInterfaces.Models;

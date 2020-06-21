@@ -2,13 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using MQTTnet;
 using MQTTnet.Client.Receiving;
-using MQTTnet.Protocol;
-using MQTTnet.Server;
 using NServiceBus;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MqttServerBroker.Handlers

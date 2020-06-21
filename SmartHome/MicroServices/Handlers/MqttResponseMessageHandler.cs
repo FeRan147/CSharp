@@ -1,18 +1,7 @@
 ﻿using MicroServices.Messages;
-using Microsoft.Extensions.Configuration;
 using MqttClientEnactor.Interfaces;
-using MQTTnet;
-using MQTTnet.Client;
-using MQTTnet.Client.Options;
-using MQTTnet.Packets;
-using MQTTnet.Protocol;
-using MQTTnet.Server;
 using NServiceBus;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MicroServices.Handlers

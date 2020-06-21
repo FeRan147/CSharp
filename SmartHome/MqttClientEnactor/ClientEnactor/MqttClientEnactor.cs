@@ -2,12 +2,8 @@
 using MqttClientEnactor.Interfaces;
 using MQTTnet;
 using MQTTnet.Client;
-using MQTTnet.Client.Disconnecting;
 using MQTTnet.Client.Options;
-using MQTTnet.Client.Receiving;
 using MQTTnet.Protocol;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 

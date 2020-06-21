@@ -1,14 +1,7 @@
 ﻿using DomainInterfaces.Interfaces;
-using DomainInterfaces.Models;
 using DomainInterfaces.MongoModels;
-using InfrastructureInterfaces.Interfaces;
 using MicroServices.Messages;
-using Microsoft.Extensions.Configuration;
-using MQTTnet;
 using NServiceBus;
-using NServiceBus.Logging;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;

@@ -1,12 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using DomainInterfaces.Interfaces;
 using DomainServices.Services;
-using Microsoft.Extensions.Logging;
-using NServiceBus;
 
 namespace DependencyInjection.Modules
 {

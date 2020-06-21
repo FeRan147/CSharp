@@ -1,7 +1,6 @@
 ﻿using InfrastructureInterfaces.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
 
 namespace InfrastructureServices.Contexts
 {

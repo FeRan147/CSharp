@@ -3,9 +3,6 @@ using AutoMapper;
 using DomainInterfaces.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using D = DomainInterfaces.Models;
 
 namespace Api.LoggerProvider

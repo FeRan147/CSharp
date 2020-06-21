@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Api.Helpers;
+﻿using Api.Helpers;
 using Api.LoggerProvider;
 using AutoMapper;
 using DomainInterfaces.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
-using MqttClientEnactor.Interfaces;
-using MQTTnet.AspNetCore;
-using MQTTnet.Client.Receiving;
 using MqttServerBrokerInterfaces.Interfaces;
-using NServiceBus;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace Api
 {

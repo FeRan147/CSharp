@@ -10,7 +10,6 @@ using DomainInterfaces.Interfaces;
 using D = DomainInterfaces.Models;
 using NServiceBus;
 using System.Net;
-using Microsoft.Extensions.Configuration;
 using MQTTnet;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -52,6 +51,7 @@ namespace Api.Controllers
         public async Task<DeviceViewModel> GetAsync(int id)
         {
             var device = await _deviceService.GetAsync(id);
+
             return _mapper.Map<DeviceViewModel>(device);
         }
 
@@ -59,6 +59,7 @@ namespace Api.Controllers
         public async Task<IList<DeviceViewModel>> GetPagedAsync(int currentPage, int onPage)
         {
             var pagedDevices = await _deviceService.GetPagedAsync(currentPage, onPage);
+
             return pagedDevices.Select(item =>
             {
                 var entity = _mapper.Map<DeviceViewModel>(item);
@@ -69,7 +70,7 @@ namespace Api.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
-        public async Task SetLightOnAsync()
+        public async Task<IActionResult> SetLightOnAsync()
         {
             var message = new MqttResponseMessage()
             {
@@ -83,12 +84,14 @@ namespace Api.Controllers
 
             var response = await _endpoint.Request<HttpStatusCode>(message)
                 .ConfigureAwait(false);
+
+            return StatusCode((int)response);
         }
 
         [AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
-        public async Task SetLightOffAsync()
+        public async Task<IActionResult> SetLightOffAsync()
         {
             var message = new MqttResponseMessage()
             {
@@ -102,6 +105,8 @@ namespace Api.Controllers
 
             var response = await _endpoint.Request<HttpStatusCode>(message)
                 .ConfigureAwait(false);
+
+            return StatusCode((int)response);
         }
     }
 }

@@ -2,15 +2,10 @@
 using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client.Receiving;
-using MQTTnet.Diagnostics;
 using MQTTnet.Server;
 using MqttServerBroker.Logging;
 using MqttServerBrokerInterfaces.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MqttServerBroker.ServerBroker
